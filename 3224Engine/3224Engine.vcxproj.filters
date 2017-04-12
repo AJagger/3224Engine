@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{045e7d22-b05d-48cf-9cc7-3f3699f11279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frameworks">
+      <UniqueIdentifier>{82226769-e301-4af1-a61e-5460f609518e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,6 +36,9 @@
     <ClInclude Include="3224Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Frameworks\Draw.h">
+      <Filter>Frameworks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -37,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="3224Engine.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Frameworks\Draw.cpp">
+      <Filter>Frameworks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
