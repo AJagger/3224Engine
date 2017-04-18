@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\nclglExpansion\Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChunkGenerator.cpp" />
     <ClCompile Include="GameTimer.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\nclglExpansion\Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChildMeshInterface.h" />
     <ClInclude Include="ChunkGenerator.h" />

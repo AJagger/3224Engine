@@ -39,6 +39,33 @@
     <ClInclude Include="Frameworks\Draw.h">
       <Filter>Frameworks</Filter>
     </ClInclude>
+    <ClInclude Include="Core\GameState.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameInitialise.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameShutdown.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\stdafx.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Frameworks\stdafx.h">
+      <Filter>Frameworks</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameScene.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Frameworks\DataArray.h">
+      <Filter>Frameworks</Filter>
+    </ClInclude>
+    <ClInclude Include="DataArrayTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -49,6 +76,27 @@
     </ClCompile>
     <ClCompile Include="Frameworks\Draw.cpp">
       <Filter>Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameState.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameInitialise.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameShutdown.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameScene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Frameworks\DataArray.cpp">
+      <Filter>Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="DataArrayTest.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
