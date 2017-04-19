@@ -3,6 +3,8 @@
 
 GameState::GameState()
 {
+	paused = false;
+	end = false;
 }
 
 GameState::~GameState()

@@ -71,6 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>Renderer\SOIL;Renderer\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Renderer\GLEW\lib\$(Configuration);Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="3224Engine.h" />
     <ClInclude Include="Core\GameInitialise.h" />
+    <ClInclude Include="Core\GameLoop.h" />
     <ClInclude Include="Core\GameObject.h" />
     <ClInclude Include="Core\GameScene.h" />
     <ClInclude Include="Core\GameShutdown.h" />
@@ -164,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="3224Engine.cpp" />
     <ClCompile Include="Core\GameInitialise.cpp" />
+    <ClCompile Include="Core\GameLoop.cpp" />
     <ClCompile Include="Core\GameObject.cpp" />
     <ClCompile Include="Core\GameScene.cpp" />
     <ClCompile Include="Core\GameShutdown.cpp" />
@@ -186,6 +190,11 @@
   <ItemGroup>
     <Image Include="3224Engine.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Renderer\nclgl\nclgl.vcxproj">
+      <Project>{98d6b51b-cb0a-4389-adc6-24082b967c3f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

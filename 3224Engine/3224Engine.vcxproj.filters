@@ -66,6 +66,9 @@
     <ClInclude Include="DataArrayTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\GameLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,6 +99,9 @@
       <Filter>Frameworks</Filter>
     </ClCompile>
     <ClCompile Include="DataArrayTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
