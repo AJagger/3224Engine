@@ -3,14 +3,14 @@
 
 GameObject::GameObject()
 {
-	AIControlled = false;
+	AIEnabled = false;
 	physicsEnabled = false;
 	entityName = "DefaultEntityObject";
 }
 
-GameObject::GameObject(bool AIControlled, bool physicsEnabled, std::string entityName)
+GameObject::GameObject(bool AIEnabled, bool physicsEnabled, std::string entityName)
 {
-	this->AIControlled= AIControlled;
+	this->AIEnabled= AIEnabled;
 	this->physicsEnabled = physicsEnabled;
 	this->entityName = entityName;
 }

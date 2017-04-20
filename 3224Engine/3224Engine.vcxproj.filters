@@ -69,6 +69,21 @@
     <ClInclude Include="Core\GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Frameworks\KeyInterpreter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DemoCode\DemoKeyInterpreter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DemoCode\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DemoCode\DemoGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +117,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\GameLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Frameworks\KeyInterpreter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\DemoCode\DemoGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

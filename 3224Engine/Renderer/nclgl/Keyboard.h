@@ -20,6 +20,7 @@ _-_-_-_-_-_-_-""  ""
 *//////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include "InputDevice.h"
+#include "vector"
 
 //http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx
 enum KeyboardKeys {
@@ -179,6 +180,8 @@ public:
 	bool KeyHeld(KeyboardKeys key);
 	//Is this the first update the key has been pressed for?
 	bool KeyTriggered(KeyboardKeys key);
+	//ADDITION: Returns currently pressed keys
+	std::vector<int> CurrentlyPressed();
 
 protected:
 	Keyboard(HWND &hwnd);

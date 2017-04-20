@@ -103,6 +103,20 @@ template<class T> int DataArray<T>::GetId(T & object)
 	return id;
 }
 
+template<class T> T * DataArray<T>::TryToGetFirst()
+{
+	for(int i = 0; i < MAX_OBJECTS; i++)
+	{
+		if(data[i].id !=-1)
+		{
+			lastLookup = i;
+			return &data[i].object;
+		}
+	}
+
+	return nullptr;
+}
+
 template<class T>
 bool DataArray<T>::IsNext()
 {
@@ -117,8 +131,7 @@ bool DataArray<T>::IsNext()
 	return found;
 }
 
-template<class T>
-T * DataArray<T>::Next()
+template<class T> T * DataArray<T>::Next()
 {
 	for (int i = lastLookup+1; i < MAX_OBJECTS; i++)
 	{

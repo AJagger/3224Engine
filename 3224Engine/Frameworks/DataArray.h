@@ -20,12 +20,13 @@ public:
 	bool Exists(int id);
 	T* TryToGet(int id);
 	int GetId(T &object);
+	T* TryToGetFirst();
 	bool IsNext();
 	T* Next();
 	int Count();
 
 private:
-	static const int MAX_OBJECTS = 300;
+	static const int MAX_OBJECTS = 1000;
 	int count;
 	int nextId;
 	int lastLookup;

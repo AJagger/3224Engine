@@ -18,7 +18,7 @@ void GameLoop::RunLoop()
 	while(!state->end && state->gameWindow.UpdateWindow())
 	{
 		//Take Keyboard input
-
+		state->gameWindow.GetKeyboard()->CurrentlyPressed();
 
 		if (!state->paused)
 		{
