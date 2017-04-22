@@ -18,14 +18,14 @@ void Draw::RenderObjects(DataArray<DemoGameObject>* objects, GameState *state)
 	DemoGameObject *object = objects->TryToGetFirst();
 	if(object != nullptr)
 	{
-		state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, 0));
+		state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
 
 		while(objects->IsNext())
 		{
 			object = objects->Next();
 			if (object != nullptr)
 			{
-				state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, 0));
+				state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
 			}
 		}
 	}

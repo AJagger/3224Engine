@@ -17,8 +17,18 @@ public:
 	virtual ~Renderer(void);
 
 	virtual void RenderScene();
+
+	void UpdateTextureMatrix(float rotation);
+	void ToggleDepth();
+	//void ToggleRepeating();
+	//void ToggleFiltering();
+
 	void AddToPipeline(Mesh *mesh, Vector3 position);
 
 	DataArray<DrawData> renderPipeline = DataArray<DrawData>();
 
+private:
+	bool filtering;
+	bool repeating;
+	bool usingDepth;
 };

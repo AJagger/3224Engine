@@ -3,7 +3,7 @@
 #include "../nclgl/ChunkGenerator.h"
 
 enum MeshBuffer {
-	VERTEX_BUFFER, COLOUR_BUFFER, MAX_BUFFER
+	VERTEX_BUFFER, COLOUR_BUFFER, TEXTURE_BUFFER, MAX_BUFFER
 };
 
 class Mesh
@@ -18,6 +18,8 @@ public:
 	static Mesh* GenerateChunk(float ** heightmap, int chunkZ, int chunkX);
 	static Mesh* GenerateWaterChunk(int chunkZ, int chunkX);
 	static const int GRID_SIZE = 1;
+	void SetTexture(GLuint tex) { texture = tex; }
+	GLuint GetTexture() { return texture; }
 
 protected:
 	void BufferData();
@@ -30,5 +32,8 @@ protected:
 
 	Vector3* vertices;
 	Vector4* colours;
+
+	GLuint texture;
+	Vector2* textureCoords;
 };
 
