@@ -2,6 +2,13 @@
 
 #include "../../nclgl/OGLRenderer.h"
 #include "../../nclgl/Camera.h"
+#include "../../Frameworks/DataArray.h"
+
+struct DrawData
+{
+	Mesh *objectMesh;
+	Vector3 position;
+};
 
 class  Renderer : public  OGLRenderer {
 
@@ -10,39 +17,8 @@ public:
 	virtual ~Renderer(void);
 
 	virtual void RenderScene();
-	virtual void UpdateScene(float msec);
-	void SwitchToPerspective();
-	void SwitchToOrthographic();
-	void PrintMap(float **map);
+	void AddToPipeline(Mesh *mesh, Vector3 position);
 
-	void ToggleDepth();
-	void ToggleAlphaBlend();
-	void ToggleBlendMode();
+	DataArray<DrawData> renderPipeline = DataArray<DrawData>();
 
-	inline void SetScale(float s) { scale = s; }
-	inline void SetRotation(float r) { rotation = r; }
-	inline void SetPosition(Vector3 p) { position = p; }
-
-	typedef ChunkGenerator::SurroundingHeightmaps SurroundingHeightmaps;
-	static const int CHUNK_ARRAY_COUNT = 4;
-
-	SurroundingHeightmaps GenerateSurroundingHeightmaps(int xChunkValue, int zChunkValue);
-
-	float** chunkHeightmaps[CHUNK_ARRAY_COUNT][CHUNK_ARRAY_COUNT] = {};
-
-protected:
-	Mesh* chunkMeshes[CHUNK_ARRAY_COUNT][CHUNK_ARRAY_COUNT] = {};
-	Mesh* waterLevelMeshes[CHUNK_ARRAY_COUNT][CHUNK_ARRAY_COUNT] = {};
-	Mesh* chunk1;
-	Mesh* chunk2;
-	Camera* camera;
-
-	bool usingDepth;
-	bool usingAlpha;
-	int blendMode;
-
-	float scale;
-	float rotation;
-	Vector3 position;
-	//Vector3 positions[2];
 };

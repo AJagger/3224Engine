@@ -149,3 +149,19 @@ template<class T> int DataArray<T>::Count()
 {
 	return count;
 }
+
+template<class T> void DataArray<T>::FreeAll()
+{
+	for (int i = (MAX_OBJECTS - 1); i >= 0; i--)
+	{
+		if (data[i].id != -1)
+		{
+			data[i].id = -1;
+			freeList.push_front(i);
+		}
+	}
+
+	lastLookup = -1;
+	nextId = 0;
+	count = 0;
+}

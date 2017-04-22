@@ -1,31 +1,13 @@
 #include "Renderer.h"
+#include "../../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
 
 Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
-	//Generate chunks. Left->Right = +Z, Bottom->Top = +X
-	for (int cgx = 0; cgx < CHUNK_ARRAY_COUNT; cgx++)
-	{
-		for (int cgz = 0; cgz < CHUNK_ARRAY_COUNT; cgz++) 
-		{
-			ChunkGenerator* gen = new ChunkGenerator(GenerateSurroundingHeightmaps(cgx, cgz));
-			gen->GenerateHeightMap();
-			float **tempMap = gen->GetHeightMapAsArray();
-			chunkHeightmaps[cgx][cgz] = tempMap;
-			//delete gen;
+	//currentShader = new Shader(SHADERDIR"MatrixVertex.glsl",
+	//	SHADERDIR"basicFragment.glsl");
 
-			chunkMeshes[cgx][cgz] = Mesh::GenerateChunk(tempMap, cgz, cgx);
-			waterLevelMeshes[cgx][cgz] = Mesh::GenerateWaterChunk(cgz, cgx);
-			//delete tempMap;
-		}
-	}
-
-	camera = new Camera();
-
-	usingDepth = 1;
-	usingAlpha = 1;
-	blendMode = 0;
-
-	currentShader = new Shader(SHADERDIR"MatrixVertex.glsl", SHADERDIR"basicFragment.glsl");
+	//Need to change this to relative paths once I figure them out
+	currentShader = new Shader("C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\MatrixVertex.glsl", "C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\basicFragment.glsl");
 
 	if (!currentShader->LinkProgram()) {
 		return;
@@ -33,134 +15,72 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
 	init = true;
 
-	SwitchToOrthographic();
+	//projMatrix = Matrix4::Perspective(1.0f, 100.0f, (float)16 / (float)9, 45.0f);
 }
 
 Renderer::~Renderer(void) {
-	delete chunk1;
-	delete chunk2;
-	delete camera;
-	delete chunkMeshes;
-	delete chunkHeightmaps;
 
-	//for (int i = 0; i < CHUNK_ARRAY_COUNT; i++) {
-	//	delete[] chunkHeightmaps[i];
-	//}
-	//delete[] chunkHeightmaps;
-}
-
-void Renderer::SwitchToPerspective() {
-	projMatrix = Matrix4::Perspective(1.0f, 10000.0f,
-		(float)width / (float)height, 45.0f);
-}
-
-void Renderer::SwitchToOrthographic() {
-	projMatrix = Matrix4::Orthographic(-1.0f, 10000.0f,
-		width / 2.0f, -width / 2.0f, height / 2.0f, -height / 2.0f);
 }
 
 void Renderer::RenderScene() {
+	//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST | GL_BLEND);
 
 	glUseProgram(currentShader->GetProgram());
 
 	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "projMatrix"), 1, false, (float *)& projMatrix);
-
 	glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "viewMatrix"), 1, false, (float *)& viewMatrix);
 
-	int i = 1;
-	//Render Chunk Meshes
-	Vector3  tempPos = position;
-	tempPos.z += (i*500.0f);
-	tempPos.x -= (i*100.0f);
-	tempPos.y -= (i*100.0f);
-
-	modelMatrix = Matrix4::Translation(tempPos) *
-		Matrix4::Rotation(rotation, Vector3(0, 1, 0)) *
-		Matrix4::Scale(Vector3(scale, scale, scale));
-
-	glUniformMatrix4fv(glGetUniformLocation(
-		currentShader->GetProgram(), "modelMatrix"), 1, false,
-		(float *)& modelMatrix);
-
-	for (int mdx = 0; mdx < CHUNK_ARRAY_COUNT; mdx++)
+	//Cycle through objects in renderPipeline and draw.
+	DrawData *drawData = renderPipeline.TryToGetFirst();
+	if (drawData != nullptr)
 	{
-		for (int mdz = 0; mdz < CHUNK_ARRAY_COUNT; mdz++)
+		modelMatrix = Matrix4::Translation(drawData->position) *
+			Matrix4::Rotation(0.0f, Vector3(0, 1, 0)) *
+			Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
+
+		glUniformMatrix4fv(glGetUniformLocation(
+			currentShader->GetProgram(), "modelMatrix"), 1, false,
+			(float *)& modelMatrix);
+
+		//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
+		drawData->objectMesh->Draw();
+
+		while (renderPipeline.IsNext())
 		{
-			waterLevelMeshes[mdx][mdz]->Draw();
-			chunkMeshes[mdx][mdz]->Draw();
+			drawData = renderPipeline.Next();
+			if (drawData != nullptr)
+			{
+				//modelMatrix = Matrix4::Translation(drawData->position);
+				//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
+
+				modelMatrix = Matrix4::Translation(drawData->position) *
+							  Matrix4::Rotation(0.0f, Vector3(0, 1, 0)) *
+							  Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
+
+				glUniformMatrix4fv(glGetUniformLocation(
+					currentShader->GetProgram(), "modelMatrix"), 1, false,
+					(float *)& modelMatrix);
+
+				drawData->objectMesh->Draw();
+			}
 		}
 	}
 
 	glUseProgram(0);
+
 	SwapBuffers();
+
+	//clear RenderPipeline
+	renderPipeline.FreeAll();
 }
 
-void  Renderer::UpdateScene(float msec) {
-	camera->UpdateCamera(msec);
-	viewMatrix = camera->BuildViewMatrix();
-}
-
-void Renderer::PrintMap(float** map) {
-	for (int y = 0; y < ChunkGenerator::CHUNK_SIZE; y++)
-	{
-		for (int x = 0; x < ChunkGenerator::CHUNK_SIZE; x++)
-		{
-			cout << map[y][x] << ", ";
-		}
-		cout << "\n";
-	}
-}
-
-void Renderer::ToggleDepth()
+void Renderer::AddToPipeline(Mesh *mesh, Vector3 position)
 {
-	usingDepth = !usingDepth;
-	usingDepth ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-}
-
-void Renderer::ToggleAlphaBlend()
-{
-	usingAlpha = !usingAlpha;
-	usingAlpha ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-}
-
-void Renderer::ToggleBlendMode()
-{
-	blendMode = (blendMode + 1) % 4;
-
-	switch (blendMode) {
-	case (0): glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
-	case (1): glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR); break;
-	case (2): glBlendFunc(GL_ONE, GL_ZERO); break;
-	case (3): glBlendFunc(GL_SRC_ALPHA, GL_ONE); break;
-	};
-
-}
-
-ChunkGenerator::SurroundingHeightmaps Renderer::GenerateSurroundingHeightmaps(int xChunkValue, int zChunkValue)
-{
-	SurroundingHeightmaps toReturn;
-
-	if (zChunkValue != 0)
-	{
-		toReturn.leftHeightMap = chunkHeightmaps[xChunkValue][zChunkValue - 1];
-	}
-
-	if (xChunkValue != (CHUNK_ARRAY_COUNT - 1))
-	{
-		toReturn.topHeightMap = chunkHeightmaps[xChunkValue + 1][zChunkValue];
-	}
-
-	if (zChunkValue != (CHUNK_ARRAY_COUNT - 1))
-	{
-		toReturn.rightHeightMap = chunkHeightmaps[xChunkValue][zChunkValue + 1];
-	}
-
-	if (xChunkValue != 0)
-	{
-		toReturn.bottomHeightMap = chunkHeightmaps[xChunkValue - 1][zChunkValue];
-	}
-
-	return toReturn;
+	DrawData *data = renderPipeline.CreateNew();
+	data->position = position;
+	data->objectMesh = mesh;
 }

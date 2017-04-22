@@ -9,11 +9,13 @@ public:
 	~GameLoop();
 
 	void RunLoop();
-	void TogglePause();
 
 private:
 	GameState *state;
 	GameScene *scene;
+	vector<int> input;
+
+	void TempPositionUpdater(); //For use until implementation of physics engine
 
 
 };

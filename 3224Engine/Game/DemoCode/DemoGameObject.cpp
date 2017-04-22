@@ -3,6 +3,7 @@
 
 DemoGameObject::DemoGameObject()
 {
+	entityType = UNINITIALISED;
 }
 
 DemoGameObject::DemoGameObject(GameEntityType type, Mesh *mesh)

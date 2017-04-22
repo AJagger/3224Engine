@@ -17,6 +17,7 @@ public:
 	virtual ~KeyInterpreter();
 
 	virtual void ProcessKeyPresses(std::vector<int> keys, GameState &gameState, GameScene &gameScene) = 0;
+	//virtual void ProcessKeyPresses(std::vector<int> keys, GameState *gameState, GameScene *gameScene) = 0;
 
 //private:
 //

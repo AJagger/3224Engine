@@ -24,6 +24,7 @@ public:
 	bool IsNext();
 	T* Next();
 	int Count();
+	void FreeAll();
 
 private:
 	static const int MAX_OBJECTS = 1000;

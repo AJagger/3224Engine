@@ -64,7 +64,7 @@ std::vector<int> Keyboard::CurrentlyPressed()
 	std::vector<int> activatedKeys;
 	for(int i = 0; i < KEYBOARD_MAX; i++)
 	{
-		if(keyStates[i] = true)
+		if(keyStates[i] == true)
 		{
 			activatedKeys.push_back(i);
 		}

@@ -13,3 +13,14 @@ GameScene::~GameScene()
 void GameScene::LoadLevel()
 {
 }
+
+void GameScene::LoadTestLevel()
+{
+	DemoGameObject *obj = gameObjects.CreateNew();
+	Mesh *objMesh = Mesh::GenerateTriangle();
+	obj->ConfigureDefaultPlayer(objMesh);
+
+	obj = gameObjects.CreateNew();
+	objMesh = Mesh::GenerateTriangle();
+	obj->ConfigureDefaultStatic(objMesh);
+}

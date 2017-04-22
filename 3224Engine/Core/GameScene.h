@@ -16,5 +16,6 @@ public:
 	DataArray<DemoGameObject> gameObjects = DataArray<DemoGameObject>();
 
 	void LoadLevel();
+	void LoadTestLevel();
 
 };
