@@ -20,6 +20,8 @@ public:
 
 	void UpdateTextureMatrix(float rotation);
 	void ToggleDepth();
+	void ToggleAlphaBlend();
+	void ToggleBlendMode();
 	//void ToggleRepeating();
 	//void ToggleFiltering();
 
@@ -31,4 +33,6 @@ private:
 	bool filtering;
 	bool repeating;
 	bool usingDepth;
+	bool usingAlpha;
+	int blendMode;
 };

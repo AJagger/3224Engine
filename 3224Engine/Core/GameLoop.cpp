@@ -2,13 +2,14 @@
 #include "GameLoop.h"
 #include "../Game/DemoCode/DemoKeyInterpreter.h"
 #include "../Frameworks/Draw.h"
-#include <chrono>
-#include <thread>
+#include <ctime>
 
 GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
 {
 	state = gameState;
 	scene = gameScene;
+
+	tickLength = 16; //Set each tick to 16ms (= 60 ticks per second). Can't change for now
 }
 
 GameLoop::~GameLoop()
@@ -22,9 +23,10 @@ void GameLoop::RunLoop()
 	DemoKeyInterpreter keyInterp = DemoKeyInterpreter();
 	Draw renderer = Draw();
 
+	lastTick = clock();
+
 	while(!state->end && state->gameWindow.UpdateWindow())
 	{
-		//std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 		//Take Keyboard input
 		//input = state->gameWindow.GetKeyboard()->CurrentlyPressed();
 		input = Window::GetKeyboard()->CurrentlyPressed();
@@ -34,8 +36,10 @@ void GameLoop::RunLoop()
 		//	state->end = true;
 		//}
 
-		if (!state->paused)
+		if (!state->paused && (clock() - lastTick) >= tickLength)
 		{
+			lastTick = clock();
+
 			//Process Inputs
 			keyInterp.ProcessKeyPresses(input, *state, *scene);
 			//AI Processes

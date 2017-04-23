@@ -15,6 +15,9 @@ private:
 	GameScene *scene;
 	vector<int> input;
 
+	unsigned int lastTick;
+	int tickLength;
+
 	void TempPositionUpdater(); //For use until implementation of physics engine
 
 

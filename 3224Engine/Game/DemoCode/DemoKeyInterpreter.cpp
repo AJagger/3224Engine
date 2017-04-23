@@ -115,6 +115,6 @@ void DemoKeyInterpreter::Player_Right(GameScene & gamescene)
 
 void DemoKeyInterpreter::Debug_Toggle(GameState & gamestate)
 {
-	gamestate.renderer.ToggleDepth();
+	gamestate.renderer.ToggleBlendMode();
 }
 

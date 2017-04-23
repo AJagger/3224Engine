@@ -26,9 +26,12 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
 	filtering = true;
 	usingDepth = false;
+	usingAlpha = false;
 	repeating = false;
+	blendMode = 0;
 
 	ToggleDepth();
+	ToggleAlphaBlend();
 }
 
 Renderer::~Renderer(void) {
@@ -40,7 +43,7 @@ void Renderer::RenderScene() {
 	//glClear(GL_COLOR_BUFFER_BIT);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST | GL_BLEND);
+	//glEnable(GL_DEPTH_TEST | GL_BLEND);
 
 	glUseProgram(currentShader->GetProgram());
 
@@ -99,6 +102,25 @@ void Renderer::ToggleDepth()
 {
 	usingDepth = !usingDepth;
 	usingDepth ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+}
+
+void Renderer::ToggleAlphaBlend()
+{
+	usingAlpha = !usingAlpha;
+	usingAlpha ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
+}
+
+void Renderer::ToggleBlendMode()
+{
+	blendMode = (blendMode + 1) % 4;
+
+	switch (blendMode) {
+	case (0): glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
+	case (1): glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR); break;
+	case (2): glBlendFunc(GL_ONE, GL_ZERO); break;
+	case (3): glBlendFunc(GL_SRC_ALPHA, GL_ONE); break;
+	};
+
 }
 
 void Renderer::AddToPipeline(Mesh *mesh, Vector3 position)
