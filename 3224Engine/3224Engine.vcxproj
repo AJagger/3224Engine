@@ -35,7 +35,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -71,14 +71,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>Renderer\SOIL;Renderer\GLEW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>Renderer\GLEW\lib\$(Configuration);Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -90,6 +92,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories>../ncglExpansion/;../Renderer/GLEW/include/;../Renderer/ncgl/;../GLEW/include/;/Renderer/GLEW/include/;/Renderer/ncglExpansion/;/Renderer/nclgl/;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,6 +122,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories>../ncglExpansion/;../Renderer/GLEW/include/;../Renderer/ncgl/;../GLEW/include/;/Renderer/GLEW/include/;/Renderer/ncglExpansion/;/Renderer/nclgl/;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

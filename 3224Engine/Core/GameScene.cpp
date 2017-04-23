@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameScene.h"
 #include "../Frameworks/DataArray.cpp" //Temp fix to Linker Error
+#include "../Renderer/SOIL/SOIL.h"
 
 GameScene::GameScene()
 {
