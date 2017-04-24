@@ -9,6 +9,7 @@ public:
 	~GameLoop();
 
 	void RunLoop();
+	void SetTickLength(int tickLength);
 
 private:
 	GameState *state;

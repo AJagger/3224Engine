@@ -6,7 +6,8 @@
 class GameScene
 {
 public:
-	GameScene();
+	//GameScene(vector<Mesh> *gameMeshes, vector<GLuint> *gameTextures);
+	GameScene(DataArray<Mesh*> *gameMeshes, DataArray<GLuint> *gameTextures);
 	~GameScene();
 
 	//DataArray<GameObject> environment = DataArray<GameObject>(); //Custom GameObject implementation required
@@ -14,6 +15,10 @@ public:
 	//DataArray<GameObject> particles = DataArray<GameObject>(); //Custom GameObject implementation required
 
 	DataArray<DemoGameObject> gameObjects = DataArray<DemoGameObject>();
+	//vector<Mesh> *gameMeshes;
+	//vector<GLuint> *gameTextures;
+	DataArray<Mesh*> *gameMeshes;
+	DataArray<GLuint> *gameTextures;
 
 	void LoadLevel();
 	void LoadTestLevel();

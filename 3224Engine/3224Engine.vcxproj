@@ -164,6 +164,7 @@
     <ClInclude Include="Frameworks\DataArray.h" />
     <ClInclude Include="Frameworks\Draw.h" />
     <ClInclude Include="Frameworks\KeyInterpreter.h" />
+    <ClInclude Include="Frameworks\ResouceLoader.h" />
     <ClInclude Include="Frameworks\Sound.h" />
     <ClInclude Include="Frameworks\stdafx.h" />
     <ClInclude Include="Game\DemoCode\DemoGameObject.h" />
@@ -188,6 +189,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Frameworks\KeyInterpreter.cpp" />
+    <ClCompile Include="Frameworks\ResouceLoader.cpp" />
     <ClCompile Include="Frameworks\Sound.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp" />

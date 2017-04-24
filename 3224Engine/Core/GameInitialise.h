@@ -1,4 +1,5 @@
 #pragma once
+#include "GameLoop.h"
 
 static class GameInitialise
 {
@@ -6,7 +7,7 @@ public:
 	GameInitialise();
 	~GameInitialise();
 
-	static void StartGame();
+	static GameLoop* InitialiseGame();
 	static bool InitSoundEngine();
 };
 

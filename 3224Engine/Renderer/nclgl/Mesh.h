@@ -1,6 +1,11 @@
 #pragma once
 #include "OGLRenderer.h"
 #include "../nclgl/ChunkGenerator.h"
+#include <string>
+#include <fstream>
+
+using std::ifstream;
+using std::string;
 
 enum MeshBuffer {
 	VERTEX_BUFFER, COLOUR_BUFFER, TEXTURE_BUFFER, MAX_BUFFER
@@ -15,15 +20,12 @@ public:
 	virtual void Draw();
 	static Mesh* GenerateTriangle();
 	static Mesh* GenerateTriangleStrip();
-	static Mesh* GenerateChunk(float ** heightmap, int chunkZ, int chunkX);
-	static Mesh* GenerateWaterChunk(int chunkZ, int chunkX);
-	static const int GRID_SIZE = 1;
+	static Mesh* Mesh::LoadMeshFile(const string &fileName);
 	void SetTexture(GLuint tex) { texture = tex; }
 	GLuint GetTexture() { return texture; }
 
 protected:
 	void BufferData();
-	static Vector4 DetermineColour(float elevation);
 
 	GLuint arrayObject;
 	GLuint bufferObject[MAX_BUFFER];

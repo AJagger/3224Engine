@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "3224Engine.h"
 #include "Core/GameInitialise.h"
+#include "Core/GameShutdown.h"
 
 #define MAX_LOADSTRING 100
 
@@ -28,7 +29,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Place code here.
 
-	GameInitialise::StartGame();
+	GameLoop *game = GameInitialise::InitialiseGame();
+	if(game)
+	{
+		game->RunLoop();
+		GameShutdown::TerminateGame(game);
+	}
+	else
+	{
+		//Something ****ed up
+	}
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);

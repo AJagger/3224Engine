@@ -10,7 +10,7 @@ GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
 	state = gameState;
 	scene = gameScene;
 
-	tickLength = 16; //Set each tick to 16ms (= 60 ticks per second). Can't change for now
+	tickLength = 16; //Set each tick to 16ms default (= 60 ticks per second)
 }
 
 GameLoop::~GameLoop()
@@ -51,9 +51,14 @@ void GameLoop::RunLoop()
 			Sound::ProcessAudio();
 		}
 
-		//Clear input keys ready for next loop //NECESSARY? IDK !_!_!_!_!_!_!
+		//Clear input keys
 		input.clear();
 	}
+}
+
+void GameLoop::SetTickLength(int tickLength)
+{
+	this->tickLength = tickLength;
 }
 
 void GameLoop::TempPositionUpdater()

@@ -84,122 +84,58 @@ Mesh * Mesh::GenerateTriangleStrip()
 	return m;
 }
 
-//Left->Right = +Z, Bottom->Top = +X
-Mesh * Mesh::GenerateChunk(float ** heightmap, int chunkZ, int chunkX)
+Mesh * Mesh::LoadMeshFile(const string & fileName)
 {
+	ifstream f(fileName);
+
+	if (!f) {
+		return nullptr;
+	}
+
 	Mesh*m = new Mesh();
-	m->numVertices = (ChunkGenerator::CHUNK_SIZE*ChunkGenerator::CHUNK_SIZE) + ((ChunkGenerator::CHUNK_SIZE - 1) * (ChunkGenerator::CHUNK_SIZE - 2));
 	m->type = GL_TRIANGLE_STRIP;
+	f >> m->numVertices;
+
+	int hasTex = 0;
+	int hasColour = 0;
+
+	f >> hasTex;
+	f >> hasColour;
 
 	m->vertices = new Vector3[m->numVertices];
+	m->textureCoords = new Vector2[m->numVertices];
 	m->colours = new Vector4[m->numVertices];
 
-	float heighDifPercentage = 0;
-	float minHeight = -100;
-	float heightDif = 250;
+	float x, y, z;
 
-	int vertCount = 0;
-	for (int row = 0; row < (ChunkGenerator::CHUNK_SIZE - 1); row++) {
-		//Even Rows
-		if ((row % 2) == 0) 
-		{
-			for (int col = 0; col < ChunkGenerator::CHUNK_SIZE; col++) {
+	for (int i = 0; i < m->numVertices; ++i) {
+		//f >> m->vertices[i].x;
+		//f >> m->vertices[i].y;
+		//f >> m->vertices[i].z;
+		f >> x;
+		f >> y;
+		f >> z;
 
-				m->vertices[vertCount] = Vector3(
-					((float)col * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),	//x
-					heightmap[col][row],														//y
-					((float)row * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)		//z
-				);
-				//heighDifPercentage = (heightmap[col][row] - minHeight) / heightDif;
-				//m->colours[vertCount] = Vector4(0.6f, (1.0f - (heighDifPercentage * 0.5)),(heighDifPercentage * 0.5) ,1.0f);
-				m->colours[vertCount] = DetermineColour(heightmap[col][row]);
-				vertCount++;
-
-				m->vertices[vertCount] = Vector3(
-					((float)col * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),			//x
-					heightmap[col][row + 1],															//y
-					((float)(row + 1) * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)		//z
-				);
-				//heighDifPercentage = (heightmap[col][row + 1] - minHeight) / heightDif;
-				//m->colours[vertCount] = Vector4(0.6f, (1.0f - (heighDifPercentage * 0.5)), (heighDifPercentage * 0.5), 1.0f);
-				m->colours[vertCount] = DetermineColour(heightmap[col][row + 1]);
-				vertCount++;
-			}
-		}
-		//Odd Rows
-		else 
-		{
-			for (int col = (ChunkGenerator::CHUNK_SIZE - 1); col > 0; col--) {
-
-				m->vertices[vertCount] = Vector3(
-					((float)col * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),			//x
-					heightmap[col][row + 1],															//y
-					((float)(row + 1) * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)		//z
-				);
-				//heighDifPercentage = (heightmap[col][row + 1] - minHeight) / heightDif;
-				//m->colours[vertCount] = Vector4(0.6f, (1.0f - (heighDifPercentage * 0.5)), (heighDifPercentage * 0.5), 1.0f);
-				m->colours[vertCount] = DetermineColour(heightmap[col][row + 1]);
-				vertCount++;
-
-				m->vertices[vertCount] = Vector3(
-					((float)(col - 1) * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),	//x
-					heightmap[col - 1][row],														//y
-					((float)row * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)			//z
-				);
-				//heighDifPercentage = (heightmap[col - 1][row] - minHeight) / heightDif;
-				//m->colours[vertCount] = Vector4(0.5f, (1.0f - (heighDifPercentage * 0.5)), (heighDifPercentage * 0.5), 1.0f);
-				m->colours[vertCount] = DetermineColour(heightmap[col - 1][row]);
-				vertCount++;
-			}
+		m->vertices[i] = Vector3(x , y , z );
+	}
+	if (hasColour) {
+		for (int i = 0; i < m->numVertices; ++i) {
+			f >> m->colours[i].x;
+			f >> m->colours[i].y;
+			f >> m->colours[i].z;
+			f >> m->colours[i].w;
 		}
 	}
-	m->vertices[vertCount] = Vector3(
-		0.0f + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),													//x
-		heightmap[ChunkGenerator::CHUNK_SIZE - 1][ChunkGenerator::CHUNK_SIZE - 1],								//y
-		((float)(ChunkGenerator::CHUNK_SIZE - 1) * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)	//z
-	);
-	//heighDifPercentage = (heightmap[ChunkGenerator::CHUNK_SIZE - 1][ChunkGenerator::CHUNK_SIZE - 1] - minHeight) / heightDif;
-	//m->colours[vertCount] = Vector4(0.5f, (1.0f - (heighDifPercentage * 0.5)), (heighDifPercentage * 0.5), 1.0f);
-	m->colours[vertCount] = DetermineColour(heightmap[ChunkGenerator::CHUNK_SIZE - 1][ChunkGenerator::CHUNK_SIZE - 1]);
 
-	m->BufferData();
-
-	return m;
-}
-
-Mesh * Mesh::GenerateWaterChunk(int chunkZ, int chunkX)
-{
-	Mesh*m = new Mesh();
-	m->numVertices = 4;
-	m->type = GL_TRIANGLE_STRIP;
-
-	m->vertices = new Vector3[m->numVertices];
-	m->vertices[0] = Vector3(
-		(0.0f * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),
-		ChunkGenerator::WATER_LEVEL,
-		(0.0f * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)
-	);
-	m->vertices[1] = Vector3(
-		((float)ChunkGenerator::CHUNK_SIZE * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),
-		ChunkGenerator::WATER_LEVEL,
-		(0.0f * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)
-	);
-	m->vertices[2] = Vector3(
-		(0.0f * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),
-		ChunkGenerator::WATER_LEVEL,
-		((float)ChunkGenerator::CHUNK_SIZE * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)
-	);
-	m->vertices[3] = Vector3(
-		((float)ChunkGenerator::CHUNK_SIZE * GRID_SIZE) + (chunkX * ChunkGenerator::CHUNK_SIZE_OFFSET),
-		ChunkGenerator::WATER_LEVEL,
-		((float)ChunkGenerator::CHUNK_SIZE * GRID_SIZE) + (chunkZ * ChunkGenerator::CHUNK_SIZE_OFFSET)
-	);
-
-	m->colours = new Vector4[m->numVertices];
-	m->colours[0] = Vector4(0.4f, 0.7f, 1.0f, 0.4f);
-	m->colours[1] = Vector4(0.4f, 0.7f, 1.0f, 0.4f);
-	m->colours[2] = Vector4(0.4f, 0.7f, 1.0f, 0.4f);
-	m->colours[3] = Vector4(0.4f, 0.7f, 1.0f, 0.4f);
+	if (hasTex) {
+		for (int i = 0; i < m->numVertices; ++i) {
+			//f >> m->textureCoords[i].x;
+			//f >> m->textureCoords[i].y;
+			f >> x;
+			f >> y;
+			m->textureCoords[i] = Vector2(x, y);
+		}
+	}
 
 	m->BufferData();
 
@@ -234,41 +170,4 @@ void Mesh::BufferData()
 	}
 	
 	glBindVertexArray(0);
-}
-
-Vector4 Mesh::DetermineColour(float elevation)
-{
-	float r, g, b = 0.0f;
-
-	if (elevation < -10)
-	{
-		r = 1.0f;
-		g = 1.0f;
-		b = 0.10f + (elevation / -100);
-	}
-	else if (elevation < 150)
-	{
-		float heightDifPercentage = (elevation + 10) / 170;
-		r = 0.5f;
-		g = (1.0f - (heightDifPercentage * 0.5));
-		b = (heightDifPercentage * 0.5);
-	}
-	else
-	{
-		float increase = (elevation - 150) * 0.001;
-		if (increase > 0.5f) 
-		{
-			r = 1.0f;
-			g = 1.0f;
-			b = 1.0f;
-		}
-		else 
-		{
-			r = 0.5f + increase;
-			g = 0.5f + increase;
-			b = 0.5f + increase;
-		}
-	}
-
-	return Vector4(r, g, b, 1.0f);
 }

@@ -15,7 +15,7 @@ public:
 	bool paused;
 	bool end;
 
-	//Renderer Data
+	//Global Game Data
 	Window gameWindow = Window("Terrain Generation!", 1600, 1200, false);
 	Renderer renderer = Renderer(gameWindow);
 };
