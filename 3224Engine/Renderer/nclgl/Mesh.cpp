@@ -11,7 +11,7 @@ Mesh::Mesh(void)
 	vertices = NULL;
 	colours = NULL;
 	type = GL_TRIANGLES;
-	texture = 0;
+	//texture = 0;
 	textureCoords = NULL;
 }
 
@@ -20,13 +20,13 @@ Mesh::~Mesh()
 {
 	glDeleteVertexArrays(1, &arrayObject);
 	glDeleteBuffers(MAX_BUFFER, bufferObject);
-	glDeleteTextures(1, &texture);
+	//glDeleteTextures(1, &texture);
 	delete[] textureCoords;
 	delete[] vertices;
 	delete[] colours;
 }
 
-void Mesh::Draw()
+void Mesh::Draw(GLuint texture)
 {
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glBindVertexArray(arrayObject);

@@ -6,27 +6,27 @@ DemoGameObject::DemoGameObject()
 	entityType = UNINITIALISED;
 }
 
-DemoGameObject::DemoGameObject(GameEntityType type, Mesh *mesh)
+DemoGameObject::DemoGameObject(GameEntityType type, int meshId, int textureId)
 {
 	if(type == STATIC_OBJECT)
 	{
-		ConfigureDefaultStatic(mesh);
+		ConfigureDefaultStatic(meshId, textureId);
 	} 
 	else if(type == NPC)
 	{
-		ConfigureDefaultNPC(mesh);
+		ConfigureDefaultNPC(meshId, textureId);
 	}
 	else if (type == PLAYER)
 	{
-		ConfigureDefaultPlayer(mesh);
+		ConfigureDefaultPlayer(meshId, textureId);
 	}
 	else if (type == PROJECTILE)
 	{
-		ConfigureDefaultProjectile(mesh);
+		ConfigureDefaultProjectile(meshId, textureId);
 	}
 	else if (type == EFFECT)
 	{
-		ConfigureDefaultEffect(mesh);
+		ConfigureDefaultEffect(meshId, textureId);
 	}
 }
 
@@ -34,7 +34,7 @@ DemoGameObject::~DemoGameObject()
 {
 }
 
-void DemoGameObject::ConfigureDefaultStatic(Mesh *mesh)
+void DemoGameObject::ConfigureDefaultStatic(int meshId, int textureId)
 {
 	entityType = STATIC_OBJECT;
 	playerControlled = false;
@@ -53,10 +53,11 @@ void DemoGameObject::ConfigureDefaultStatic(Mesh *mesh)
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
-	this->mesh = mesh;
+	this->meshId = meshId;
+	this->textureId = textureId;
 }
 
-void DemoGameObject::ConfigureDefaultNPC(Mesh *mesh)
+void DemoGameObject::ConfigureDefaultNPC(int meshId, int textureId)
 {
 	entityType = NPC;
 	playerControlled = false;
@@ -75,10 +76,11 @@ void DemoGameObject::ConfigureDefaultNPC(Mesh *mesh)
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
-	this->mesh = mesh;
+	this->meshId = meshId;
+	this->textureId = textureId;
 }
 
-void DemoGameObject::ConfigureDefaultPlayer(Mesh * mesh)
+void DemoGameObject::ConfigureDefaultPlayer(int meshId, int textureId)
 {
 	entityType = PLAYER;
 	playerControlled = true;
@@ -97,10 +99,11 @@ void DemoGameObject::ConfigureDefaultPlayer(Mesh * mesh)
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
-	this->mesh = mesh;
+	this->meshId = meshId;
+	this->textureId = textureId;
 }
 
-void DemoGameObject::ConfigureDefaultProjectile(Mesh *mesh)
+void DemoGameObject::ConfigureDefaultProjectile(int meshId, int textureId)
 {
 	entityType = PROJECTILE;
 	playerControlled = false;
@@ -119,10 +122,11 @@ void DemoGameObject::ConfigureDefaultProjectile(Mesh *mesh)
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
-	this->mesh = mesh;
+	this->meshId = meshId;
+	this->textureId = textureId;
 }
 
-void DemoGameObject::ConfigureDefaultEffect(Mesh *mesh)
+void DemoGameObject::ConfigureDefaultEffect(int meshId, int textureId)
 {
 	entityType = EFFECT;
 	playerControlled = false;
@@ -141,5 +145,6 @@ void DemoGameObject::ConfigureDefaultEffect(Mesh *mesh)
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
-	this->mesh = mesh;
+	this->meshId = meshId;
+	this->textureId = textureId;
 }

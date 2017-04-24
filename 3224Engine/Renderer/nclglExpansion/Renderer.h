@@ -7,6 +7,7 @@
 struct DrawData
 {
 	Mesh *objectMesh;
+	GLuint texture;
 	Vector3 position;
 };
 
@@ -25,7 +26,7 @@ public:
 	//void ToggleRepeating();
 	//void ToggleFiltering();
 
-	void AddToPipeline(Mesh *mesh, Vector3 position);
+	void AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position);
 
 	DataArray<DrawData> renderPipeline = DataArray<DrawData>();
 

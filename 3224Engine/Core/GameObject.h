@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "../Renderer/nclgl/Vector2.h"
-#include "../Renderer/nclgl/Mesh.h"
+//#include "../Renderer/nclgl/Mesh.h"
 
 
 class GameObject
@@ -23,6 +23,7 @@ public:
 	Vector2 movementVector;
 	float rotation;
 
-	Mesh* mesh;
+	int meshId;
+	int textureId;
 	
 };

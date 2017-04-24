@@ -47,7 +47,7 @@ void GameLoop::RunLoop()
 			//UpdatePositions (with physics)
 			TempPositionUpdater();
 			//RenderScene
-			renderer.RenderObjects(&scene->gameObjects, state);
+			renderer.RenderObjects(scene, state);
 			Sound::ProcessAudio();
 		}
 

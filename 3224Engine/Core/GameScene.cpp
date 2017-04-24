@@ -44,13 +44,18 @@ void GameScene::LoadTestLevel()
 	//obj->position = Vector2(3, 3);
 
 	DemoGameObject *obj = gameObjects.CreateNew();
-	Mesh *objMesh = *gameMeshes->TryToGet(0);
-	objMesh->SetTexture(*gameTextures->TryToGet(0));
-	obj->ConfigureDefaultPlayer(objMesh);
+	int meshId = 0;
+	int textureId = 1;
+	obj->ConfigureDefaultPlayer(meshId, textureId);
 
 	obj = gameObjects.CreateNew();
-	objMesh = *gameMeshes->TryToGet(1);
-	objMesh->SetTexture(*gameTextures->TryToGet(2));
-	obj->ConfigureDefaultStatic(objMesh);
+	meshId = 1;
+	textureId = 2;
+	obj->ConfigureDefaultStatic(meshId, textureId);
 	obj->position = Vector2(1, 1);
+
+	obj = gameObjects.CreateNew();
+	meshId = 1;
+	obj->ConfigureDefaultStatic(meshId);
+	obj->position = Vector2(3, 3);
 }

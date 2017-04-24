@@ -16,7 +16,7 @@ class DemoGameObject : public GameObject
 {
 public:
 	DemoGameObject();
-	DemoGameObject(GameEntityType type, Mesh *mesh);
+	DemoGameObject(GameEntityType type, int meshId, int textureId = 0);
 	~DemoGameObject();
 
 	GameEntityType entityType;
@@ -24,10 +24,10 @@ public:
 	int targetObjectId;				// targetObjectId used for NPCs & Projectiles
 	int lifeTime;					// lifeTime used for Effects
 
-	void ConfigureDefaultStatic(Mesh *mesh);
-	void ConfigureDefaultNPC(Mesh *mesh);
-	void ConfigureDefaultPlayer(Mesh *mesh);
-	void ConfigureDefaultProjectile(Mesh *mesh);
-	void ConfigureDefaultEffect(Mesh *mesh);
+	void ConfigureDefaultStatic(int meshId, int textureId = 0);
+	void ConfigureDefaultNPC(int meshId, int textureId = 0);
+	void ConfigureDefaultPlayer(int meshId, int textureId = 0);
+	void ConfigureDefaultProjectile(int meshId, int textureId = 0);
+	void ConfigureDefaultEffect(int meshId, int textureId = 0);
 
 };

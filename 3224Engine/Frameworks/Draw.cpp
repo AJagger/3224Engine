@@ -11,21 +11,22 @@ Draw::~Draw()
 {
 }
 
-void Draw::RenderObjects(DataArray<DemoGameObject>* objects, GameState *state)
+void Draw::RenderObjects(GameScene *scene, GameState *state)
 {
 	vector<DrawData> renderData = vector<DrawData>();
+	DataArray<DemoGameObject> *objects = &scene->gameObjects;
 
 	DemoGameObject *object = objects->TryToGetFirst();
 	if(object != nullptr)
 	{
-		state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
+		state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
 
 		while(objects->IsNext())
 		{
 			object = objects->Next();
 			if (object != nullptr)
 			{
-				state->renderer.AddToPipeline(object->mesh, Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
+				state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
 			}
 		}
 	}

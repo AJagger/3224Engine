@@ -63,7 +63,7 @@ void Renderer::RenderScene() {
 		glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);
 
 		//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
-		drawData->objectMesh->Draw();
+		drawData->objectMesh->Draw(drawData->texture);
 
 		while (renderPipeline.IsNext())
 		{
@@ -77,7 +77,7 @@ void Renderer::RenderScene() {
 
 				glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);
 
-				drawData->objectMesh->Draw();
+				drawData->objectMesh->Draw(drawData->texture);
 			}
 		}
 	}
@@ -123,9 +123,10 @@ void Renderer::ToggleBlendMode()
 
 }
 
-void Renderer::AddToPipeline(Mesh *mesh, Vector3 position)
+void Renderer::AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position)
 {
 	DrawData *data = renderPipeline.CreateNew();
 	data->position = position;
+	data->texture = texture;
 	data->objectMesh = mesh;
 }

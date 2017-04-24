@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "../Frameworks/DataArray.h"
 #include "../Game/DemoCode/DemoGameObject.h"
+#include "../Renderer/nclgl/Mesh.h"
 
 class GameScene
 {

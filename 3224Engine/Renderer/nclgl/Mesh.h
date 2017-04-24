@@ -17,12 +17,10 @@ public:
 	Mesh(void);
 	~Mesh(void);
 
-	virtual void Draw();
+	virtual void Draw(GLuint texture = 0);
 	static Mesh* GenerateTriangle();
 	static Mesh* GenerateTriangleStrip();
 	static Mesh* Mesh::LoadMeshFile(const string &fileName);
-	void SetTexture(GLuint tex) { texture = tex; }
-	GLuint GetTexture() { return texture; }
 
 protected:
 	void BufferData();
@@ -35,7 +33,6 @@ protected:
 	Vector3* vertices;
 	Vector4* colours;
 
-	GLuint texture;
 	Vector2* textureCoords;
 };
 
