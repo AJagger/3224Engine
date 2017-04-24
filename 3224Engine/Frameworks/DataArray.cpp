@@ -68,6 +68,7 @@ template<class T> bool DataArray<T>::Exists(int id)
 		if (data[i].id == id)
 		{
 			found = true;
+			break;
 		}
 	}
 
@@ -97,6 +98,7 @@ template<class T> int DataArray<T>::GetId(T & object)
 		if (&data[i].object == &object)
 		{
 			id = i;
+			break;
 		}
 	}
 
@@ -126,6 +128,7 @@ bool DataArray<T>::IsNext()
 		if (data[i].id != -1)
 		{
 			found = true;
+			break;
 		}
 	}
 	return found;

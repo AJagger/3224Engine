@@ -75,7 +75,7 @@ void DemoKeyInterpreter::Player_Forward(GameScene & gamescene)
 	{
 		if (controlledEntities[i]->entityType == PLAYER)
 		{
-			controlledEntities[i]->movementVector.y = controlledEntities[i]->movementVector.y + 0.01f;
+			controlledEntities[i]->movementVector.y = controlledEntities[i]->movementVector.y + 0.05f;
 		}
 	}
 }
@@ -86,7 +86,7 @@ void DemoKeyInterpreter::Player_Backward(GameScene & gamescene)
 	{
 		if (controlledEntities[i]->entityType == PLAYER)
 		{
-			controlledEntities[i]->movementVector.y = controlledEntities[i]->movementVector.y - 0.01f;
+			controlledEntities[i]->movementVector.y = controlledEntities[i]->movementVector.y - 0.05f;
 		}
 	}
 }
@@ -97,7 +97,7 @@ void DemoKeyInterpreter::Player_Left(GameScene & gamescene)
 	{
 		if (controlledEntities[i]->entityType == PLAYER)
 		{
-			controlledEntities[i]->movementVector.x = controlledEntities[i]->movementVector.x + 0.01f;
+			controlledEntities[i]->movementVector.x = controlledEntities[i]->movementVector.x + 0.05f;
 		}
 	}
 }
@@ -108,7 +108,7 @@ void DemoKeyInterpreter::Player_Right(GameScene & gamescene)
 	{
 		if (controlledEntities[i]->entityType == PLAYER)
 		{
-			controlledEntities[i]->movementVector.x = controlledEntities[i]->movementVector.x - 0.01f;
+			controlledEntities[i]->movementVector.x = controlledEntities[i]->movementVector.x - 0.05f;
 		}
 	}
 }

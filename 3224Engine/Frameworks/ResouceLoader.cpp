@@ -118,3 +118,59 @@ bool ResourceLoader::LoadMeshes(DataArray<Mesh*> *meshes, const string & meshDir
 	
 	return true;
 }
+
+bool ResourceLoader::LoadObjectList(DataArray<DemoGameObject>* gameObjects, const string & sceneFile)
+{
+	char buffer[BUFFER_SIZE];
+
+	ifstream f(sceneFile);
+
+	if (!f) {
+		return false;
+	}
+
+	stringstream ss;
+
+	//Disregard the first line in the file
+	f.ignore(500, '\n');
+
+	while (f.getline(buffer, BUFFER_SIZE))
+	{
+		ss << buffer;
+
+		//Create new GameObject in the DataArray
+		DemoGameObject *import = gameObjects->CreateNew();
+
+		for (int i = 0; i < 18; i++)
+		{
+			ss.getline(buffer, BUFFER_SIZE, ',');
+			switch(i)
+			{
+				case 0: import->entityType = GameEntityType(atoi(buffer)); break;			//EntityType
+				case 1: import->playerControlled = atoi(buffer) == 1 ? true : false; break;	//playerControlled
+				case 2: import->hostile = atoi(buffer) == 1 ? true : false; break;			//hostile
+				case 3: import->AIEnabled = atoi(buffer) == 1 ? true : false; break;		//AiEnabled
+				case 4: import->physicsEnabled = atoi(buffer) == 1 ? true : false; break;	//physicsEnabled
+				case 5: import->collisionsEnabled = atoi(buffer) == 1 ? true : false; break;//collisionsEnabled
+				case 6: import->staticObject = atoi(buffer) == 1 ? true : false; break;		//staticObject
+				case 7: import->position.x = atoi(buffer); break;							//position.x
+				case 8: import->position.y = atoi(buffer); break;							//position.y
+				case 9: import->position.z = atoi(buffer); break;							//position.z
+				case 10: import->movementVector.x = atoi(buffer); break;					//movementVector.x
+				case 11: import->movementVector.y = atoi(buffer); break;					//movementVector.y
+				case 12: import->rotation = atoi(buffer) % 360; break;						//rotation
+				case 13: import->meshId = atoi(buffer); break;								//meshId
+				case 14: import->textureId = atoi(buffer); break;							//textureId
+				case 15: import->hasTarget = atoi(buffer) == 1 ? true : false; break;		//hasTarget
+				case 16: import->targetObjectId = atoi(buffer); break;						//targetObjectId
+				case 17: import->lifeTime = atoi(buffer); break;							//Lifetime
+			}
+		}
+
+		ss.clear();
+	}
+
+	f.close();
+
+	return true;
+}

@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "../Frameworks/DataArray.cpp" //Temp fix to Linker Error
 #include "../Renderer/SOIL/SOIL.h"
+#include "../Frameworks/ResouceLoader.h"
 
 GameScene::GameScene(DataArray<Mesh*> *gameMeshes, DataArray<GLuint> *gameTextures)
 {
@@ -17,8 +18,9 @@ GameScene::~GameScene()
 	gameTextures = nullptr;
 }
 
-void GameScene::LoadLevel()
+void GameScene::LoadLevel(const string &sceneFile)
 {
+	ResourceLoader::LoadObjectList(&gameObjects, sceneFile);
 }
 
 void GameScene::LoadTestLevel()
@@ -52,10 +54,10 @@ void GameScene::LoadTestLevel()
 	meshId = 1;
 	textureId = 2;
 	obj->ConfigureDefaultStatic(meshId, textureId);
-	obj->position = Vector2(1, 1);
+	obj->position = Vector3(1, 1, 0);
 
 	obj = gameObjects.CreateNew();
 	meshId = 1;
 	obj->ConfigureDefaultStatic(meshId);
-	obj->position = Vector2(3, 3);
+	obj->position = Vector3(3, 3, 0);
 }

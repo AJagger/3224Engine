@@ -19,14 +19,14 @@ void Draw::RenderObjects(GameScene *scene, GameState *state)
 	DemoGameObject *object = objects->TryToGetFirst();
 	if(object != nullptr)
 	{
-		state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
+		state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), object->position);
 
 		while(objects->IsNext())
 		{
 			object = objects->Next();
 			if (object != nullptr)
 			{
-				state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), Vector3(object->position.x, object->position.y, object->entityType == PLAYER ? 1 : 0));
+				state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), object->position);
 			}
 		}
 	}

@@ -66,19 +66,19 @@ void GameLoop::TempPositionUpdater()
 	DemoGameObject *returnedEntity = scene->gameObjects.TryToGetFirst();
 	if (returnedEntity != nullptr)
 	{
-		if(!returnedEntity->staticObject)
+		if (!returnedEntity->staticObject)
 		{
-			returnedEntity->position = returnedEntity->position + returnedEntity->movementVector;
+			returnedEntity->position = returnedEntity->position + Vector3(returnedEntity->movementVector.x, returnedEntity->movementVector.y, 0);
 			returnedEntity->movementVector.ToZero();
+		}
 
-			while (scene->gameObjects.IsNext())
+		while (scene->gameObjects.IsNext())
+		{
+			returnedEntity = scene->gameObjects.Next();
+			if (!returnedEntity->staticObject)
 			{
-				returnedEntity = scene->gameObjects.Next();
-				if (!returnedEntity->staticObject)
-				{
-					returnedEntity->position = returnedEntity->position + returnedEntity->movementVector;
-					returnedEntity->movementVector.ToZero();
-				}
+				returnedEntity->position = returnedEntity->position + Vector3(returnedEntity->movementVector.x, returnedEntity->movementVector.y, 0);
+				returnedEntity->movementVector.ToZero();
 			}
 		}
 	}

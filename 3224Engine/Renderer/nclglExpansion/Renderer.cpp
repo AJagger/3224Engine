@@ -17,12 +17,8 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
 	init = true;
 
-	//projMatrix = Matrix4::Perspective(1.0f, 100.0f, (float)16 / (float)9, 45.0f);
-	//projMatrix = Matrix4::Perspective(5.0f, 50.0f, (float)1.6 / (float)0.9, 45.0f);
-	//projMatrix = Matrix4::Orthographic(800 / 2.0f, -800 / 2.0f, 600 / 2.0f, -600 / 2.0f, -1.0f, 1.0f);
-	//projMatrix = Matrix4::Orthographic(-1, 1, 1, -1, 1, -1);
-	//projMatrix = Matrix4::Orthographic(1, -1, 10, 0, 10, 0);
-	projMatrix = Matrix4::Orthographic(-1, 100, 10, 0, 10, 0);
+	//The projMatrix defines how much pf the canvas can be seen - Setup for the test level is a 32x20 (16:10) canvas
+	projMatrix = Matrix4::Orthographic(-1, 100, 32, 0, 20, 0);
 
 	filtering = true;
 	usingDepth = false;
@@ -32,6 +28,9 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
 	ToggleDepth();
 	ToggleAlphaBlend();
+	//ToggleBlendMode();
+	//ToggleBlendMode();
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 Renderer::~Renderer(void) {

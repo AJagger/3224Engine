@@ -34,7 +34,8 @@ GameLoop* GameInitialise::InitialiseGame()
 			//Initialise Game Scene
 			GameScene* gameScene = new GameScene(gameMeshes, gameTextures);
 
-			gameScene->LoadTestLevel();
+			//gameScene->LoadTestLevel();
+			gameScene->LoadLevel("C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Game\\DemoCode\\DemoLevelData\\DemoScene.csv");
 
 			GameLoop* gameLoop = new GameLoop(gameState, gameScene);
 			return gameLoop;

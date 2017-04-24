@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "../Renderer/nclgl/Vector2.h"
+#include "../Renderer/nclgl/Vector3.h"
+
 //#include "../Renderer/nclgl/Mesh.h"
 
 
@@ -19,7 +21,7 @@ public:
 	bool staticObject;
 	std::string entityName;
 	
-	Vector2 position;
+	Vector3 position;
 	Vector2 movementVector;
 	float rotation;
 

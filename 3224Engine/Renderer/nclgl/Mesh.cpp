@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <sstream>
 
 Mesh::Mesh(void)
 {
@@ -107,34 +108,52 @@ Mesh * Mesh::LoadMeshFile(const string & fileName)
 	m->colours = new Vector4[m->numVertices];
 
 	float x, y, z;
+	char buffer[50];
 
-	for (int i = 0; i < m->numVertices; ++i) {
-		//f >> m->vertices[i].x;
-		//f >> m->vertices[i].y;
-		//f >> m->vertices[i].z;
-		f >> x;
-		f >> y;
-		f >> z;
+	stringstream ss;
+	f.ignore(500, '\n');
 
-		m->vertices[i] = Vector3(x , y , z );
-	}
-	if (hasColour) {
-		for (int i = 0; i < m->numVertices; ++i) {
-			f >> m->colours[i].x;
-			f >> m->colours[i].y;
-			f >> m->colours[i].z;
-			f >> m->colours[i].w;
+	for (int j = 0; j < m->numVertices*2; j++)
+	{
+		f.getline(buffer, 50);
+		ss << buffer;
+
+		//If j < m->numVertices then we're reading in vertices
+		if (j < m->numVertices) {
+			for (int i = 0; i < 3; ++i) {
+			
+				ss.getline(buffer, 50, ',');
+
+				switch(i)
+				{
+					case 0: x = stof(buffer); break;
+					case 1: y = stof(buffer); break;
+					case 2: z = stof(buffer); break;
+				}
+			}
+
+			m->vertices[j] = Vector3(x, y, z);
 		}
-	}
+		//if j >= numVertices we're reading in texture coordinates
+		else
+		{
+			if (hasTex) {
+				for (int i = 0; i < 2; ++i) {
 
-	if (hasTex) {
-		for (int i = 0; i < m->numVertices; ++i) {
-			//f >> m->textureCoords[i].x;
-			//f >> m->textureCoords[i].y;
-			f >> x;
-			f >> y;
-			m->textureCoords[i] = Vector2(x, y);
+					ss.getline(buffer, 50, ',');
+
+					switch (i)
+					{
+						case 0: x = stof(buffer); break;
+						case 1: y = stof(buffer); break;
+					}
+				}
+
+				m->textureCoords[j - m->numVertices] = Vector2(x, y);
+			}
 		}
+
+		ss.clear();
 	}
 
 	m->BufferData();

@@ -49,7 +49,7 @@ void DemoGameObject::ConfigureDefaultStatic(int meshId, int textureId)
 	targetObjectId = -1;
 	lifeTime = 0;
 
-	position = Vector2(0, 0);
+	position = Vector3(0, 0, 0);
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
@@ -72,7 +72,7 @@ void DemoGameObject::ConfigureDefaultNPC(int meshId, int textureId)
 	targetObjectId = -1;
 	lifeTime = 0;
 
-	position = Vector2(0, 0);
+	position = Vector3(0, 0, 0);
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
@@ -95,7 +95,7 @@ void DemoGameObject::ConfigureDefaultPlayer(int meshId, int textureId)
 	targetObjectId = -1;
 	lifeTime = 0;
 
-	position = Vector2(0, 0);
+	position = Vector3(0, 0, 0);
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
@@ -118,7 +118,7 @@ void DemoGameObject::ConfigureDefaultProjectile(int meshId, int textureId)
 	targetObjectId = -1;
 	lifeTime = 0;
 
-	position = Vector2(0, 0);
+	position = Vector3(0, 0, 0);
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
@@ -141,7 +141,7 @@ void DemoGameObject::ConfigureDefaultEffect(int meshId, int textureId)
 	targetObjectId = -1;
 	lifeTime = 0;
 
-	position = Vector2(0, 0);
+	position = Vector3(0, 0, 0);
 	movementVector = Vector2(0, 0);
 	rotation = 0;
 
