@@ -7,7 +7,7 @@ public:
 	~GameInitialise();
 
 	static void StartGame();
-
+	static bool InitSoundEngine();
 };
 
 /*Create GameState

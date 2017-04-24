@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "GameScene.h"
 #include "GameLoop.h"
+#include "../Frameworks/Sound.h"
 
 GameInitialise::GameInitialise()
 {
@@ -17,26 +18,29 @@ GameInitialise::~GameInitialise()
 
 void GameInitialise::StartGame()
 {
-	//Will be a lot of shit here
+	//Initialise WWise Audio
+	if (InitSoundEngine()) {
 
-	GameState* gameState = new GameState();
-	GameScene* gameScene = new GameScene();
+		//Initialise Game Data
+		GameState* gameState = new GameState();
+		GameScene* gameScene = new GameScene();
 
-	gameScene->LoadTestLevel();
+		gameScene->LoadTestLevel();
 
-	GameLoop* gameLoop = new GameLoop(gameState, gameScene);
+		GameLoop* gameLoop = new GameLoop(gameState, gameScene);
 
-	gameLoop->RunLoop();
+		gameLoop->RunLoop();
 
-	delete gameLoop;
-	delete gameScene;
-	delete gameState;
-
-	//=====TEST CODE BELOW=====
-	//auto testImplementation = DataArray<GameObject>();
-
-	//GameObject *working = testImplementation.CreateNew();
-	//working->entityName = "ObjId1";
-
-	//GameObject *returned = testImplementation.TryToGet(0);
+		delete gameLoop;
+		delete gameScene;
+		delete gameState;
+		Sound::TerminateSoundEngine();
+	}
 }
+
+bool GameInitialise::InitSoundEngine()
+{
+	return Sound::InitSoundEngine();
+}
+
+

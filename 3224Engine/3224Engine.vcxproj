@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/VERBOSE  "$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib\*.lib" %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -164,6 +164,7 @@
     <ClInclude Include="Frameworks\DataArray.h" />
     <ClInclude Include="Frameworks\Draw.h" />
     <ClInclude Include="Frameworks\KeyInterpreter.h" />
+    <ClInclude Include="Frameworks\Sound.h" />
     <ClInclude Include="Frameworks\stdafx.h" />
     <ClInclude Include="Game\DemoCode\DemoGameObject.h" />
     <ClInclude Include="Game\DemoCode\DemoKeyInterpreter.h" />
@@ -187,6 +188,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Frameworks\KeyInterpreter.cpp" />
+    <ClCompile Include="Frameworks\Sound.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp" />
     <ClCompile Include="stdafx.cpp">

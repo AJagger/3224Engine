@@ -3,6 +3,7 @@
 #include "../Game/DemoCode/DemoKeyInterpreter.h"
 #include "../Frameworks/Draw.h"
 #include <ctime>
+#include "../Frameworks/Sound.h"
 
 GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
 {
@@ -47,6 +48,7 @@ void GameLoop::RunLoop()
 			TempPositionUpdater();
 			//RenderScene
 			renderer.RenderObjects(&scene->gameObjects, state);
+			Sound::ProcessAudio();
 		}
 
 		//Clear input keys ready for next loop //NECESSARY? IDK !_!_!_!_!_!_!
