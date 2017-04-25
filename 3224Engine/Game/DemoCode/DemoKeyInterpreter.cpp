@@ -50,6 +50,16 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 					case CONFIG_DEBUG_TOGGLE: Debug_Toggle(gameState); break;
 					}
 				}
+
+				//Deal with setting orientation separately since it can be influenced by multiple keys being pressed at once
+				int orientation = DetermineOrientation(keys);
+				for (int i = 0; i < controlledEntities.size(); i++)
+				{
+					if (controlledEntities[i]->entityType == PLAYER)
+					{
+						controlledEntities[i]->rotation = orientation;
+					}
+				}
 			}
 
 			//Clear the controlled entities vector
@@ -57,6 +67,21 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 		}
 	}
 
+}
+
+//For use when the logic of the game loop is unaccessable - e.g. when the game is paused so that keys can be pressed to unpause.
+void DemoKeyInterpreter::ProcessLimitedKeys(std::vector<int> keys, GameState & gameState)
+{
+	//Loop through keypresses and determine what function to perform
+	for (int i = 0; i < keys.size(); i++)
+	{
+		switch (keys[i])
+		{
+			case CONFIG_FORCE_END: Force_End(gameState); break;
+			case CONFIG_TOGGLE_PAUSE: Toggle_Pause(gameState); break;
+			case CONFIG_DEBUG_TOGGLE: Debug_Toggle(gameState); break;
+		}
+	}
 }
 
 void DemoKeyInterpreter::Force_End(GameState & gamestate)
@@ -116,5 +141,36 @@ void DemoKeyInterpreter::Player_Right(GameScene & gamescene)
 void DemoKeyInterpreter::Debug_Toggle(GameState & gamestate)
 {
 	gamestate.renderer.ToggleBlendMode();
+}
+
+int DemoKeyInterpreter::DetermineOrientation(std::vector<int> keys)
+{
+	int rotation = 0;
+	bool forward = false, left = false, right = false , backward = false;
+
+	for(int i = 0; i < keys.size(); i++)
+	{
+		if (keys[i] == CONFIG_PLAYER_FORWARD) { forward = true; }
+		if (keys[i] == CONFIG_PLAYER_LEFT) { left = true; }
+		if (keys[i] == CONFIG_PLAYER_RIGHT) { right = true; }
+		if (keys[i] == CONFIG_PLAYER_BACKWARD) { backward = true; }
+	}
+
+	//Basic rotations for just one key being pressed
+	if (left) { rotation = 270; }
+	if (right) { rotation = 90; }
+	if (forward) { rotation = 0; }
+	if (backward) { rotation = 180; }
+
+	//Check for combinations and override if found
+	if (forward && left) { rotation = 315; }
+	if (forward && right) { rotation = 45; }
+	if (forward && backward) { rotation = 0; }
+	if (backward && left) { rotation = 225; }
+	if (backward && right) { rotation = 135; }
+	if (left && right && forward) { rotation = 0; }
+	if (left && right && backward) { rotation = 180; }
+
+	return rotation;
 }
 

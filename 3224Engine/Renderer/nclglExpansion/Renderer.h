@@ -9,6 +9,7 @@ struct DrawData
 	Mesh *objectMesh;
 	GLuint texture;
 	Vector3 position;
+	int rotation;
 };
 
 class  Renderer : public  OGLRenderer {
@@ -23,10 +24,8 @@ public:
 	void ToggleDepth();
 	void ToggleAlphaBlend();
 	void ToggleBlendMode();
-	//void ToggleRepeating();
-	//void ToggleFiltering();
 
-	void AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position);
+	void AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position, int rotation);
 
 	DataArray<DrawData> renderPipeline = DataArray<DrawData>();
 

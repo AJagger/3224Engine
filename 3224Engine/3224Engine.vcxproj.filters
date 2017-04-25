@@ -90,6 +90,9 @@
     <ClInclude Include="Frameworks\ResouceLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\DemoCode\DemoGameRules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Frameworks\ResouceLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\DemoCode\DemoGameRules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

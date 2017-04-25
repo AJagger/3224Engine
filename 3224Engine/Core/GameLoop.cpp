@@ -4,6 +4,7 @@
 #include "../Frameworks/Draw.h"
 #include <ctime>
 #include "../Frameworks/Sound.h"
+#include "../Game/DemoCode/DemoGameRules.h"
 
 GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
 {
@@ -17,6 +18,7 @@ GameLoop::~GameLoop()
 {
 	delete state;
 	delete scene;
+	input.clear();
 }
 
 void GameLoop::RunLoop()
@@ -43,12 +45,19 @@ void GameLoop::RunLoop()
 
 			//Process Inputs
 			keyInterp.ProcessKeyPresses(input, *state, *scene);
-			//AI Processes
-			//UpdatePositions (with physics)
+			//AI Processes Insert point
+			//Process GameRules
+			DemoGameRules::EnactGameRules(scene, state);
+			//UpdatePositions (collision detection & resolution happens here)
 			TempPositionUpdater();
 			//RenderScene
 			renderer.RenderObjects(scene, state);
 			Sound::ProcessAudio();
+		}
+		else
+		{
+			//Still need to process limited key presses for program functionality such as unpausing
+			keyInterp.ProcessLimitedKeys(input, *state);
 		}
 
 		//Clear input keys

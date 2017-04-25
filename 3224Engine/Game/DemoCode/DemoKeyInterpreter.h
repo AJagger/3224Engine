@@ -12,6 +12,7 @@ public:
 	~DemoKeyInterpreter();
 
 	void ProcessKeyPresses(std::vector<int> keys, GameState &gameState, GameScene &gameScene) override;
+	void ProcessLimitedKeys(std::vector<int> keys, GameState &gameState) override;
 	
 private:
 	enum KeyConfiguration
@@ -32,6 +33,7 @@ private:
 	void Player_Left(GameScene &gamescene);
 	void Player_Right(GameScene &gamescene);
 	void Debug_Toggle(GameState &gamestate);
+	int DetermineOrientation(std::vector<int> keys);
 
 	vector<DemoGameObject*> controlledEntities;
 };

@@ -57,7 +57,7 @@ void Renderer::RenderScene() {
 	DrawData *drawData = renderPipeline.TryToGetFirst();
 	if (drawData != nullptr)
 	{
-		modelMatrix = Matrix4::Translation(drawData->position) * Matrix4::Rotation(0.0f, Vector3(0, 1, 0)) * Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
+		modelMatrix = Matrix4::Translation(drawData->position) * Matrix4::Rotation(drawData->rotation, Vector3(0, 0, 1)) * Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
 
 		glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);
 
@@ -72,7 +72,7 @@ void Renderer::RenderScene() {
 				//modelMatrix = Matrix4::Translation(drawData->position);
 				//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
 
-				modelMatrix = Matrix4::Translation(drawData->position) * Matrix4::Rotation(0.0f, Vector3(0, 1, 0)) * Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
+				modelMatrix = Matrix4::Translation(drawData->position) * Matrix4::Rotation(drawData->rotation, Vector3(0, 0, 1)) * Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
 
 				glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);
 
@@ -122,10 +122,11 @@ void Renderer::ToggleBlendMode()
 
 }
 
-void Renderer::AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position)
+void Renderer::AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position, int rotation)
 {
 	DrawData *data = renderPipeline.CreateNew();
 	data->position = position;
 	data->texture = texture;
 	data->objectMesh = mesh;
+	data->rotation = rotation;
 }

@@ -30,7 +30,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Place code here.
 
 	GameLoop *game = GameInitialise::InitialiseGame();
-	if(game)
+	if (game)
 	{
 		game->RunLoop();
 		GameShutdown::TerminateGame(game);

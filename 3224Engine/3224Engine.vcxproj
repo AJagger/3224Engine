@@ -168,6 +168,7 @@
     <ClInclude Include="Frameworks\Sound.h" />
     <ClInclude Include="Frameworks\stdafx.h" />
     <ClInclude Include="Game\DemoCode\DemoGameObject.h" />
+    <ClInclude Include="Game\DemoCode\DemoGameRules.h" />
     <ClInclude Include="Game\DemoCode\DemoKeyInterpreter.h" />
     <ClInclude Include="Game\DemoCode\stdafx.h" />
     <ClInclude Include="Game\stdafx.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Frameworks\ResouceLoader.cpp" />
     <ClCompile Include="Frameworks\Sound.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
+    <ClCompile Include="Game\DemoCode\DemoGameRules.cpp" />
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
