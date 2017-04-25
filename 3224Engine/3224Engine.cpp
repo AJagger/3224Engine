@@ -29,17 +29,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Place code here.
 
-	GameLoop *game = GameInitialise::InitialiseGame();
-	if (game)
-	{
-		game->RunLoop();
-		GameShutdown::TerminateGame(game);
-	}
-	else
-	{
-		//Something ****ed up
-	}
-
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_MY3224ENGINE, szWindowClass, MAX_LOADSTRING);
@@ -88,7 +77,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hInstance      = hInstance;
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY3224ENGINE));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+	wcex.hbrBackground = CreateSolidBrush(RGB(180, 180, 180));
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY3224ENGINE);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -110,8 +99,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 
+   //HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   //   CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+	   CW_USEDEFAULT, 0, 200, 200, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -138,6 +130,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	case WM_CREATE:
+		{
+		CreateWindowEx(NULL, TEXT("BUTTON"), TEXT("Start"), WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP, 115, 45, 30, 25, hWnd, (HMENU)IDM_START, GetModuleHandle(NULL), NULL);
+		}
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -150,6 +146,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+			case IDM_START:
+			{
+				GameLoop *game = GameInitialise::InitialiseGame();
+				if (game)
+				{
+					game->RunLoop();
+					GameShutdown::TerminateGame(game);
+				}
+				else
+				{
+					//Something ****ed up
+				}
+				DestroyWindow(hWnd);
+				break;
+			}
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }

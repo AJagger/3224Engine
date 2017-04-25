@@ -3,13 +3,7 @@
 
 Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
-	//currentShader = new Shader(SHADERDIR"MatrixVertex.glsl",
-	//	SHADERDIR"basicFragment.glsl");
-
-	//Need to change this to relative paths once I figure them out
-	//currentShader = new Shader("C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\MatrixVertex.glsl", "C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\basicFragment.glsl");
-	currentShader = new Shader("C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\TexturedVertex.glsl", "C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Renderer\\Shaders\\TexturedFragment.glsl");
-
+	currentShader = new Shader(SHADERDIR"TexturedVertex.glsl", SHADERDIR"TexturedFragment.glsl");
 
 	if (!currentShader->LinkProgram()) {
 		return;
@@ -28,8 +22,6 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 
 	ToggleDepth();
 	ToggleAlphaBlend();
-	//ToggleBlendMode();
-	//ToggleBlendMode();
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -38,11 +30,8 @@ Renderer::~Renderer(void) {
 }
 
 void Renderer::RenderScene() {
-	//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glEnable(GL_DEPTH_TEST | GL_BLEND);
 
 	glUseProgram(currentShader->GetProgram());
 
@@ -61,7 +50,6 @@ void Renderer::RenderScene() {
 
 		glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);
 
-		//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
 		drawData->objectMesh->Draw(drawData->texture);
 
 		while (renderPipeline.IsNext())
@@ -69,9 +57,6 @@ void Renderer::RenderScene() {
 			drawData = renderPipeline.Next();
 			if (drawData != nullptr)
 			{
-				//modelMatrix = Matrix4::Translation(drawData->position);
-				//glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float*)&modelMatrix);
-
 				modelMatrix = Matrix4::Translation(drawData->position) * Matrix4::Rotation(drawData->rotation, Vector3(0, 0, 1)) * Matrix4::Scale(Vector3(1.0f, 1.0f, 1.0f));
 
 				glUniformMatrix4fv(glGetUniformLocation(currentShader->GetProgram(), "modelMatrix"), 1, false, (float *)& modelMatrix);

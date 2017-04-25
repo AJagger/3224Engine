@@ -16,9 +16,9 @@ GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
 
 GameLoop::~GameLoop()
 {
+	input.clear();
 	delete state;
 	delete scene;
-	input.clear();
 }
 
 void GameLoop::RunLoop()

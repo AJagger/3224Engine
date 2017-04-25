@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(SolutionDir)\3224Engine\Physics\Chipmunk2D-master\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Physics\Chipmunk2D-master\msvc\vc14\chipmunk\Win32\$(Configuration);$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

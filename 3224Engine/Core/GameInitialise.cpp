@@ -28,14 +28,13 @@ GameLoop* GameInitialise::InitialiseGame()
 		DataArray<Mesh*> *gameMeshes = new DataArray<Mesh*>();
 		DataArray<GLuint> *gameTextures = new DataArray<GLuint>();
 
-		if(ResourceLoader::LoadMeshes(gameMeshes, "C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Game\\DemoCode\\DemoMeshes") &&
-			ResourceLoader::LoadTextures(gameTextures, "C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Game\\DemoCode\\DemoTextures"))
+		if(ResourceLoader::LoadMeshes(gameMeshes, "Game\\DemoCode\\DemoMeshes") &&
+			ResourceLoader::LoadTextures(gameTextures, "Game\\DemoCode\\DemoTextures"))
 		{
 			//Initialise Game Scene
 			GameScene* gameScene = new GameScene(gameMeshes, gameTextures);
 
-			//gameScene->LoadTestLevel();
-			gameScene->LoadLevel("C:\\Users\\Aidan\\Documents\\Visual Studio 2015\\Projects\\3224Engine\\3224Engine\\Game\\DemoCode\\DemoLevelData\\DemoScene.csv");
+			gameScene->LoadLevel("Game\\DemoCode\\DemoLevelData\\DemoScene.csv");
 
 			GameLoop* gameLoop = new GameLoop(gameState, gameScene);
 			return gameLoop;

@@ -13,6 +13,7 @@
 #define IDI_MY3224ENGINE			107
 #define IDI_SMALL				108
 #define IDC_MY3224ENGINE			109
+#define IDM_START				110
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
