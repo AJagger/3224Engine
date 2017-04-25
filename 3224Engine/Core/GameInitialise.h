@@ -1,5 +1,6 @@
 #pragma once
 #include "GameLoop.h"
+#include "Dynamics/b2World.h"
 
 static class GameInitialise
 {
@@ -9,6 +10,7 @@ public:
 
 	static GameLoop* InitialiseGame();
 	static bool InitSoundEngine();
+	static b2World* InitPhysicsEngine();
 };
 
 /*Create GameState

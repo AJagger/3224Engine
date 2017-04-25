@@ -132,7 +132,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
 	case WM_CREATE:
 		{
-		CreateWindowEx(NULL, TEXT("BUTTON"), TEXT("Start"), WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP, 115, 45, 30, 25, hWnd, (HMENU)IDM_START, GetModuleHandle(NULL), NULL);
+		CreateWindowEx(NULL, TEXT("BUTTON"), TEXT("Start Demo Level"), WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_TABSTOP, 10, 10, 165, 120, hWnd, (HMENU)IDM_START, GetModuleHandle(NULL), NULL);
 		}
     case WM_COMMAND:
         {

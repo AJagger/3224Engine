@@ -7,6 +7,10 @@
 #include "GameScene.h"
 #include "../Frameworks/Sound.h"
 #include "../Frameworks/ResouceLoader.h"
+#include "Box2D.h"
+#include "Dynamics/b2World.h"
+#include "Common/b2Math.h"
+#include "../Frameworks/PhysicsResolver.h"
 
 GameInitialise::GameInitialise()
 {
@@ -27,13 +31,17 @@ GameLoop* GameInitialise::InitialiseGame()
 		//Initialise DataArrays of textures & Meshes contained within the game
 		DataArray<Mesh*> *gameMeshes = new DataArray<Mesh*>();
 		DataArray<GLuint> *gameTextures = new DataArray<GLuint>();
+		DataArray<CollisionMesh> *gameCollisionMeshes = new DataArray<CollisionMesh>();
 
 		if(ResourceLoader::LoadMeshes(gameMeshes, "Game\\DemoCode\\DemoMeshes") &&
-			ResourceLoader::LoadTextures(gameTextures, "Game\\DemoCode\\DemoTextures"))
+			ResourceLoader::LoadTextures(gameTextures, "Game\\DemoCode\\DemoTextures") &&
+			ResourceLoader::LoadCollisionMeshes(gameCollisionMeshes, "Game\\DemoCode\\DemoCollisionMeshes"))
 		{
-			//Initialise Game Scene
-			GameScene* gameScene = new GameScene(gameMeshes, gameTextures);
+			//Initialise PhysicsEngine
+			b2World *world = InitPhysicsEngine();
 
+			//Initialise Game Scene & load test level
+			GameScene* gameScene = new GameScene(gameMeshes, gameTextures, gameCollisionMeshes, world);
 			gameScene->LoadLevel("Game\\DemoCode\\DemoLevelData\\DemoScene.csv");
 
 			GameLoop* gameLoop = new GameLoop(gameState, gameScene);
@@ -55,6 +63,16 @@ GameLoop* GameInitialise::InitialiseGame()
 bool GameInitialise::InitSoundEngine()
 {
 	return Sound::InitSoundEngine();
+}
+
+b2World* GameInitialise::InitPhysicsEngine()
+{
+	
+	//Create a new physics world in which collisions are simulated. Set the gravity to 0,0 to prevent unwanted movement.
+	b2World *world = new b2World(b2Vec2(0.0f, 0.0f));
+	world->SetAllowSleeping(false);							//Set Sleeping to false
+
+	return world;
 }
 
 

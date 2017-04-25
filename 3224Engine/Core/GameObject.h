@@ -2,6 +2,9 @@
 #include <string>
 #include "../Renderer/nclgl/Vector2.h"
 #include "../Renderer/nclgl/Vector3.h"
+#include "Box2D.h"
+#include "Dynamics/b2Body.h"
+
 
 //#include "../Renderer/nclgl/Mesh.h"
 
@@ -27,5 +30,6 @@ public:
 
 	int meshId;
 	int textureId;
-	
+	int physMeshId;
+	b2Body *physicsObject;
 };

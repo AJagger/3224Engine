@@ -1,6 +1,7 @@
 #pragma once
 #include "GameScene.h"
 #include "GameState.h"
+#include "../Frameworks/PhysicsResolver.h"
 
 class GameLoop
 {

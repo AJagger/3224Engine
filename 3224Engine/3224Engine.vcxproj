@@ -71,16 +71,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(SolutionDir)\3224Engine\Physics\Chipmunk2D-master\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\3224Engine\Physics\Chipmunk2D-master\msvc\vc14\chipmunk\Win32\$(Configuration);$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D;$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D\Box2D;$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D\Build\vs2015\bin\x32\$(Configuration);$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D;$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D\Box2D;$(WWISESDK)\samples\SoundEngine\POSIX;$(SolutionDir)\3224Engine\Renderer\GLEW\include;$(SolutionDir)\3224Engine\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\3224Engine\Physics\Box2D-master\Box2D\Build\vs2015\bin\x32\$(Configuration);$(SolutionDir)\3224Engine\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)\3224Engine\Renderer\SOIL\$(Configuration);$(WWISESDK)\Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -164,6 +164,7 @@
     <ClInclude Include="Frameworks\DataArray.h" />
     <ClInclude Include="Frameworks\Draw.h" />
     <ClInclude Include="Frameworks\KeyInterpreter.h" />
+    <ClInclude Include="Frameworks\PhysicsResolver.h" />
     <ClInclude Include="Frameworks\ResouceLoader.h" />
     <ClInclude Include="Frameworks\Sound.h" />
     <ClInclude Include="Frameworks\stdafx.h" />
@@ -190,6 +191,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Frameworks\KeyInterpreter.cpp" />
+    <ClCompile Include="Frameworks\PhysicsResolver.cpp" />
     <ClCompile Include="Frameworks\ResouceLoader.cpp" />
     <ClCompile Include="Frameworks\Sound.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
@@ -210,6 +212,9 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Physics\Box2D-master\Box2D\Build\vs2015\Box2D.vcxproj">
+      <Project>{98400d17-43a5-1a40-95be-c53ac78e7694}</Project>
+    </ProjectReference>
     <ProjectReference Include="Renderer\nclgl\nclgl.vcxproj">
       <Project>{98d6b51b-cb0a-4389-adc6-24082b967c3f}</Project>
     </ProjectReference>

@@ -6,11 +6,12 @@
 #include "../Frameworks/Sound.h"
 #include "../Game/DemoCode/DemoGameRules.h"
 
-GameLoop::GameLoop(GameState * gameState, GameScene * gameScene)
+GameLoop::GameLoop(GameState *gameState, GameScene *gameScene)
 {
 	state = gameState;
 	scene = gameScene;
 
+	lastTick = 0;
 	tickLength = 16; //Set each tick to 16ms default (= 60 ticks per second)
 }
 
@@ -34,11 +35,6 @@ void GameLoop::RunLoop()
 		//input = state->gameWindow.GetKeyboard()->CurrentlyPressed();
 		input = Window::GetKeyboard()->CurrentlyPressed();
 
-		//if(Window::GetKeyboard()->KeyDown(KEYBOARD_ESCAPE))
-		//{
-		//	state->end = true;
-		//}
-
 		if (!state->paused && (clock() - lastTick) >= tickLength)
 		{
 			lastTick = clock();
@@ -49,7 +45,7 @@ void GameLoop::RunLoop()
 			//Process GameRules
 			DemoGameRules::EnactGameRules(scene, state);
 			//UpdatePositions (collision detection & resolution happens here)
-			TempPositionUpdater();
+			PhysicsResolver::SimulateActions(scene->world, &scene->gameObjects);
 			//RenderScene
 			renderer.RenderObjects(scene, state);
 			Sound::ProcessAudio();
@@ -70,6 +66,8 @@ void GameLoop::SetTickLength(int tickLength)
 	this->tickLength = tickLength;
 }
 
+
+//Temporary position updater when no physics engine linked/implemented
 void GameLoop::TempPositionUpdater()
 {
 	DemoGameObject *returnedEntity = scene->gameObjects.TryToGetFirst();

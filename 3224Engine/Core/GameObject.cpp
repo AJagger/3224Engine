@@ -18,4 +18,6 @@ GameObject::GameObject(bool AIEnabled, bool physicsEnabled, std::string entityNa
 
 GameObject::~GameObject()
 {
+	//The physice object pointer points to an object managed by the physics engine and so should not need to be deleted by this class
+	physicsObject = nullptr;
 }
