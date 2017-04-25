@@ -1,13 +1,16 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* Basic GameObject class which contains basic information relating to game engine function. When developing a game, a class inherited from this should be
+* used with more specific variables.
+*/
+
 #pragma once
 #include <string>
 #include "../Renderer/nclgl/Vector2.h"
 #include "../Renderer/nclgl/Vector3.h"
 #include "Box2D.h"
 #include "Dynamics/b2Body.h"
-
-
-//#include "../Renderer/nclgl/Mesh.h"
-
 
 class GameObject
 {

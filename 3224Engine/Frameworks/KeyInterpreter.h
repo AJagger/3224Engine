@@ -1,6 +1,8 @@
-/* Abstract class which processes captured user input.
- * Classes created with this are game specific.
- */
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* Abstract class for processing captured keypresses. Should be used to create a game-specific KeyInterpreter.
+*/
 
 #pragma once
 #include "../nclgl/Keyboard.h"

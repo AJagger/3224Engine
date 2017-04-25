@@ -1,3 +1,11 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class is the class used to integrate WWise audio with the game engine
+* 
+* The class is entirely commented out since I never fully got it working. I have left it in to show some of the progress and possibly to come back to in the future.
+*/
+
 #include "stdafx.h"
 #include "Sound.h"
 /* commented out for now

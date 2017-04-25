@@ -1,3 +1,10 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class inherits from the base GameObject class and provides a few extra functions and variables for use in the game demo.
+* GameEntityType in particular is very useful for determining exactly what type of object it is.
+*/
+
 #include "stdafx.h"
 #include "DemoGameObject.h"
 
@@ -6,6 +13,7 @@ DemoGameObject::DemoGameObject()
 	entityType = UNINITIALISED;
 }
 
+//Configure the DemoGameObject with default values depending on the GameEntityType assigned to it.
 DemoGameObject::DemoGameObject(GameEntityType type, int meshId, int textureId)
 {
 	if(type == STATIC_OBJECT)

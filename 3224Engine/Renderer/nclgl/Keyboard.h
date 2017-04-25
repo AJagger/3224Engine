@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author of changes: Aidan Jagger | 130281034
+* Class Description:
+* The keyboard class is largely as provided with the exception of the CurrentlyPressed function
+*/
+
 /******************************************************************************
 Class:Keyboard
 Implements:InputDevice
@@ -180,8 +186,11 @@ public:
 	bool KeyHeld(KeyboardKeys key);
 	//Is this the first update the key has been pressed for?
 	bool KeyTriggered(KeyboardKeys key);
+
+	// CSC3224 NCODE [Aidan Jagger] [130281034] 
 	//ADDITION: Returns currently pressed keys
 	std::vector<int> CurrentlyPressed();
+	// CSC3224 NCODE BLOCK ENDS. 
 
 protected:
 	Keyboard(HWND &hwnd);

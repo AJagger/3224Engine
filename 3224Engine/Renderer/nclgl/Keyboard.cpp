@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author of changes: Aidan Jagger | 130281034
+* Class Description:
+* The keyboard class is largely as provided with the exception of the CurrentlyPressed function
+*/
+
 #include "Keyboard.h"
 
 Keyboard::Keyboard(HWND &hwnd)	{
@@ -59,6 +65,7 @@ bool Keyboard::KeyTriggered(KeyboardKeys key)	 {
 	return (KeyDown(key) && !KeyHeld(key));
 }
 
+// CSC3224 NCODE [Aidan Jagger] [130281034]
 std::vector<int> Keyboard::CurrentlyPressed()
 {
 	std::vector<int> activatedKeys;
@@ -71,6 +78,7 @@ std::vector<int> Keyboard::CurrentlyPressed()
 	}
 	return activatedKeys;
 }
+// CSC3224 NCODE BLOCK ENDS. 
 
 /*
 Updates the keyboard state with data received from the OS.

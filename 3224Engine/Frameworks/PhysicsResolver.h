@@ -1,3 +1,10 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class joins the physics engine Box2D to the rest of the engine. It allows for the creation and processing of game engine objects and data into
+* objects and data used by the physics engine and vica versa.
+*/
+
 #pragma once
 #include "Box2D.h"
 #include "Dynamics/b2World.h"

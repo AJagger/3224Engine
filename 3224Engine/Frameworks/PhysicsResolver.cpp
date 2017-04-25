@@ -1,3 +1,10 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class joins the physics engine Box2D to the rest of the engine. It allows for the creation and processing of game engine objects and data into
+* objects and data used by the physics engine and vica versa.
+*/
+
 #include "stdafx.h"
 #include "PhysicsResolver.h"
 #include "Box2D.h"
@@ -22,19 +29,23 @@ PhysicsResolver::~PhysicsResolver()
 
 b2Body * PhysicsResolver::CreatePhysicsObjectFromGameObject(b2World *world, DemoGameObject * gameObject, CollisionMesh *collisionMesh)
 {
+	//Create the body definition which contains the physics object attributes
 	b2BodyDef physObjectDefinition = b2BodyDef();
 	gameObject->staticObject ? physObjectDefinition.type = b2_staticBody : physObjectDefinition.type = b2_dynamicBody;
 	physObjectDefinition.position.Set(gameObject->position.x, gameObject->position.y);
 	physObjectDefinition.userData = gameObject;
 
+	//Set up the actual collision box shape
 	b2PolygonShape physShape;
 	physShape.Set(collisionMesh->points, collisionMesh->pointCount);
 
+	//More attribute setting and inclusion of the collision box shape
 	b2FixtureDef physShapeDef;
 	physShapeDef.shape = &physShape;
 	physShapeDef.density = 10.0;
 	physShapeDef.isSensor = false;
 
+	//Use the above definitions to create the physics object
 	b2Body *objectBody = world->CreateBody(&physObjectDefinition);
 	objectBody->CreateFixture(&physShapeDef);
 
@@ -63,6 +74,7 @@ void PhysicsResolver::RemovePhysicsObjectFromWorld(b2World * world, DemoGameObje
 
 }
 
+//Update the physics objects using game engine data, run the simulation for a tick and then update the game engine objects with physics engine data.
 void PhysicsResolver::SimulateActions(b2World *world, DataArray<DemoGameObject> *gameObjects)
 {
 	//Iterate through the game objects and if they are non-static, update their movement vectors within the simulation

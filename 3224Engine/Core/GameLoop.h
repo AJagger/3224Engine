@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* The core class of the game - the game loop
+*/
+
 #pragma once
 #include "GameScene.h"
 #include "GameState.h"
@@ -20,7 +26,7 @@ private:
 	unsigned int lastTick;
 	int tickLength;
 
-	void TempPositionUpdater(); //For use until implementation of physics engine
+	void TempPositionUpdater(); //For testing purposes to allow the game loop to run without a physics engine
 
 
 };

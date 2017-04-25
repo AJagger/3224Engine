@@ -1,3 +1,15 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class implements the abstract KeyInterpreter class. It is responsible for processing collected user keypresses.
+* It supports dealing with multiple keypresses and multiple player controlled objects.
+*
+* Currently the key configuration is stored in an enum in the header file. This is not ideal but it is functional.
+*
+* The key presses are collected using the Keyboard class included in the ncgl library and they are referred to by values declared in
+* an enum in the Keyboard class.
+*/
+
 #pragma once
 #include "../../Frameworks/KeyInterpreter.h"
 #include "../../Frameworks/DataArray.h"

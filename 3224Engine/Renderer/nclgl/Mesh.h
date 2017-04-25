@@ -1,3 +1,11 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class is a heavily modified version of the mesh class that some of the graphics tutorials for the ncgl library guide you through making.
+* Included are a few testing functions for quickly generating fixed meshes as well as a function for reading in a mesh from a file - heavily modified
+* from those demonstrated in the tutorials so as to allow for floats to be read in.
+*/
+
 #pragma once
 #include "OGLRenderer.h"
 #include "../nclgl/ChunkGenerator.h"

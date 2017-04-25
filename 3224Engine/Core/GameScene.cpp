@@ -1,3 +1,11 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class stores all the information about the (non-physics) game world. It has DataArrays containing all game assets (meshes, textures, collision meshes)
+* and contains the physics world in which the physics simulations are performed. It contains a few functions but is mostly used to pass to other engine functions
+* and provide them with the level and game data needed.
+*/
+
 #include "stdafx.h"
 #include "GameScene.h"
 #include "../Frameworks/DataArray.cpp" //Temp fix to Linker Error
@@ -52,6 +60,7 @@ void GameScene::DeleteRelatedPhysicsObject(int gameObjectId)
 	}
 }
 
+//Use the ResourceLoader to load in a level from a file.
 void GameScene::LoadLevel(const string &sceneFile)
 {
 	ResourceLoader::LoadObjectList(&gameObjects, sceneFile);

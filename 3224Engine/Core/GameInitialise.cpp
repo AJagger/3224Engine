@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* Basic static class to initialise the various Game objects and systems.
+*/
+
 #include "stdafx.h"
 #include "GameInitialise.h"
 #include "../Frameworks/DataArray.h"
@@ -20,6 +26,7 @@ GameInitialise::~GameInitialise()
 {
 }
 
+//Create the DataArrays for storing game assets and assemble the GameLoop
 GameLoop* GameInitialise::InitialiseGame()
 {
 	//Initialise WWise Audio
@@ -68,7 +75,7 @@ bool GameInitialise::InitSoundEngine()
 b2World* GameInitialise::InitPhysicsEngine()
 {
 	
-	//Create a new physics world in which collisions are simulated. Set the gravity to 0,0 to prevent unwanted movement.
+	//Create a new physics world in which collisions and movement are simulated. Set the gravity to 0,0 as this is a 2D top-down game.
 	b2World *world = new b2World(b2Vec2(0.0f, 0.0f));
 	world->SetAllowSleeping(false);							//Set Sleeping to false
 

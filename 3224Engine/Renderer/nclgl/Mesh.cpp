@@ -1,3 +1,11 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class is a heavily modified version of the mesh class that some of the graphics tutorials for the ncgl library guide you through making.
+* Included are a few testing functions for quickly generating fixed meshes as well as a function for reading in a mesh from a file - heavily modified
+* from those demonstrated in the tutorials so as to allow for floats to be read in.
+*/
+
 #include "Mesh.h"
 #include <sstream>
 
@@ -21,12 +29,12 @@ Mesh::~Mesh()
 {
 	glDeleteVertexArrays(1, &arrayObject);
 	glDeleteBuffers(MAX_BUFFER, bufferObject);
-	//glDeleteTextures(1, &texture);
 	delete[] textureCoords;
 	delete[] vertices;
 	delete[] colours;
 }
 
+//Draw the mesh!
 void Mesh::Draw(GLuint texture)
 {
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -85,6 +93,7 @@ Mesh * Mesh::GenerateTriangleStrip()
 	return m;
 }
 
+//Load in a mesh from a file
 Mesh * Mesh::LoadMeshFile(const string & fileName)
 {
 	ifstream f(fileName);
@@ -111,7 +120,7 @@ Mesh * Mesh::LoadMeshFile(const string & fileName)
 	char buffer[50];
 
 	stringstream ss;
-	f.ignore(500, '\n');
+	f.ignore(500, '\n'); //skip data so that the next line read in is the start of the actual vertices
 
 	for (int j = 0; j < m->numVertices*2; j++)
 	{

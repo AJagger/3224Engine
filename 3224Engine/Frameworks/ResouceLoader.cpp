@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class deals with loading data (textures/meshes/levels (scenes)/collision meshes) into the game engine from files stored in the game directories.
+*/
+
 #include "stdafx.h"
 #include "../../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
 #include "ResouceLoader.h"
@@ -14,7 +20,7 @@ ResourceLoader::~ResourceLoader()
 
 bool ResourceLoader::LoadTextures(DataArray<GLuint> *textures, const string & texDirPath)
 {
-	char buffer[BUFFER_SIZE];
+	char buffer[BUFFER_SIZE]; //Buffer to store the input
 	int prevId = -1;
 
 	ifstream f(texDirPath + "\\IncludeTextures.txt");

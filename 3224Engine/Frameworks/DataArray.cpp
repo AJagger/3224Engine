@@ -1,3 +1,17 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* The DataArray class is built to store game assets such as GameObjects and Meshes. It is designed for quick lookup and importantly for minimal overhead when
+* creating and deleting objects.
+* The Data is stored in a fixed size array of 1000 rather than a vector which saves on memory allocation operations when dealing with fluctuating numbers of objects being
+* stored. It uses a freelist to store which locations in the array are available for new data to be stored in and when creating a "new" object in the DataArray,
+* it uses this freelist to find a location which can be used or overwritten in the main array. New objects are given a unique id which is stored in a struct alongside
+* the data allowing for quick lookup.
+* Objects are not deleted, rather, their location is marked as free.
+* 
+* This class is used exstensively throughout the engine.
+*/
+
 #include "stdafx.h"
 #include "DataArray.h"
 
@@ -119,8 +133,7 @@ template<class T> T * DataArray<T>::TryToGetFirst()
 	return nullptr;
 }
 
-template<class T>
-bool DataArray<T>::IsNext()
+template<class T> bool DataArray<T>::IsNext()
 {
 	bool found = false;
 	for (int i = lastLookup + 1; i < MAX_OBJECTS; i++)
@@ -134,6 +147,7 @@ bool DataArray<T>::IsNext()
 	return found;
 }
 
+//Allows for iteration over the dataArray without knowing individual object Ids.
 template<class T> T * DataArray<T>::Next()
 {
 	for (int i = lastLookup+1; i < MAX_OBJECTS; i++)

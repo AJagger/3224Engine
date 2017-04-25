@@ -1,3 +1,10 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* Game loop combines all the elements and systems that make up the game engine and loops until victory is achieved or the game is quit.
+* Has a default tick rate of 60 ticks per second.
+*/
+
 #include "stdafx.h"
 #include "GameLoop.h"
 #include "../Game/DemoCode/DemoKeyInterpreter.h"
@@ -24,30 +31,33 @@ GameLoop::~GameLoop()
 
 void GameLoop::RunLoop()
 {
+	//Set up the Key Interpreter to process user input and the Draw class to interface between the renderer and other parts of the engine
 	DemoKeyInterpreter keyInterp = DemoKeyInterpreter();
 	Draw renderer = Draw();
 
 	lastTick = clock();
 
+	//Main loop
 	while(!state->end && state->gameWindow.UpdateWindow())
 	{
 		//Take Keyboard input
-		//input = state->gameWindow.GetKeyboard()->CurrentlyPressed();
 		input = Window::GetKeyboard()->CurrentlyPressed();
 
+		//If the game is not paused and we're ready for a new tick...
 		if (!state->paused && (clock() - lastTick) >= tickLength)
 		{
 			lastTick = clock();
 
 			//Process Inputs
 			keyInterp.ProcessKeyPresses(input, *state, *scene);
-			//AI Processes Insert point
+			//AI Processes Insert point - the game idea I have has very rudimentary AI processes which can be created when creating the actual game
 			//Process GameRules
 			DemoGameRules::EnactGameRules(scene, state);
 			//UpdatePositions (collision detection & resolution happens here)
 			PhysicsResolver::SimulateActions(scene->world, &scene->gameObjects);
 			//RenderScene
 			renderer.RenderObjects(scene, state);
+			//Process Audio
 			Sound::ProcessAudio();
 		}
 		else
@@ -61,13 +71,14 @@ void GameLoop::RunLoop()
 	}
 }
 
+//Allows for the tick rate to be changed
 void GameLoop::SetTickLength(int tickLength)
 {
 	this->tickLength = tickLength;
 }
 
 
-//Temporary position updater when no physics engine linked/implemented
+//Temporary position updater to allow the game loop to function with no physics engine for testing/debugging
 void GameLoop::TempPositionUpdater()
 {
 	DemoGameObject *returnedEntity = scene->gameObjects.TryToGetFirst();

@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class deals with loading data (textures/meshes/levels (scenes)/collision meshes) into the game engine from files stored in the game directories.
+*/
+
 #pragma once
 #include "DataArray.h"
 #include "gl/glew.h"
@@ -21,11 +27,5 @@ public:
 
 private:
 	static const int BUFFER_SIZE = 200;
-
-	//struct IdMesh
-	//{
-	//	int id;
-	//	Mesh* meshPtr;
-	//};
 };
 
